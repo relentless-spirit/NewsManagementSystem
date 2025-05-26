@@ -9,19 +9,15 @@ using Microsoft.EntityFrameworkCore;
 namespace NewsManagementSystem.DAL.Entities;
 
 [Table("Tag")]
-[Index("TagName", Name = "UQ__Tag__BDE0FD1D2710FCC2", IsUnique = true)]
 public partial class Tag
 {
     [Key]
     public int TagID { get; set; }
 
-    [Required]
-    [StringLength(100)]
-    [Unicode(false)]
+    [StringLength(50)]
     public string TagName { get; set; }
 
-    [StringLength(255)]
-    [Unicode(false)]
+    [StringLength(400)]
     public string Note { get; set; }
 
     [ForeignKey("TagID")]

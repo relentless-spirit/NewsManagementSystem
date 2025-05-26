@@ -1,0 +1,48 @@
+﻿@model List<NewsManagementSystem.DAL.Entities.Category>
+
+@{
+    Layout = "_Layout"; // hoặc Layout = null; nếu bạn chưa cần
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Categories</title>
+</head>
+<body>
+<div>
+    <ul>
+        @if (Model != null)
+        {
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Parent ID</th>
+                        <th>Active</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var category in Model)
+                    {
+                        <tr>
+                            <td>@category.CategoryID</td>
+                            <td>@category.CategoryName</td>
+                            <td>@category.CategoryDesciption</td>
+                            <td>@category.ParentCategoryID</td>
+                            <td>@category.IsActive</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+        }
+        else
+        {
+            <li>No categories found.</li>
+        }
+    </ul>
+</div>
+</body>
+</html>

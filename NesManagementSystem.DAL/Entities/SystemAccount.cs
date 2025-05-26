@@ -9,38 +9,22 @@ using Microsoft.EntityFrameworkCore;
 namespace NewsManagementSystem.DAL.Entities;
 
 [Table("SystemAccount")]
-[Index("AccountName", Name = "UQ__SystemAc__406E0D2E350E5316", IsUnique = true)]
-[Index("AccountEmail", Name = "UQ__SystemAc__FC770D339E2F8AF7", IsUnique = true)]
 public partial class SystemAccount
 {
     [Key]
-    [StringLength(100)]
-    [Unicode(false)]
-    public string AccountID { get; set; }
+    public short AccountID { get; set; }
 
-    [Required]
     [StringLength(100)]
-    [Unicode(false)]
     public string AccountName { get; set; }
 
-    [Required]
-    [StringLength(255)]
-    [Unicode(false)]
+    [StringLength(70)]
     public string AccountEmail { get; set; }
 
-    [Required]
-    [StringLength(50)]
-    [Unicode(false)]
-    public string AccountRole { get; set; }
+    public int? AccountRole { get; set; }
 
-    [Required]
-    [StringLength(255)]
-    [Unicode(false)]
+    [StringLength(70)]
     public string AccountPassword { get; set; }
 
     [InverseProperty("CreatedBy")]
-    public virtual ICollection<NewsArticle> NewsArticleCreatedBies { get; set; } = new List<NewsArticle>();
-
-    [InverseProperty("UpdatedBy")]
-    public virtual ICollection<NewsArticle> NewsArticleUpdatedBies { get; set; } = new List<NewsArticle>();
+    public virtual ICollection<NewsArticle> NewsArticles { get; set; } = new List<NewsArticle>();
 }

@@ -1,3 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+using NewsManagementSystem.BLL.Services.Category;
+using NewsManagementSystem.DAL.DBContext;
+using NewsManagementSystem.DAL.Repositories.Category;
+
 namespace NewsManagementSystem
 {
     public class Program
@@ -8,7 +13,17 @@ namespace NewsManagementSystem
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            
+            //Register DB
+            builder.Services.AddDbContext<FUNewsManagementContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionStringDB")));
 
+            //Register repositories
+            builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
+            
+            //Register services
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+            
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -19,6 +34,9 @@ namespace NewsManagementSystem
                 app.UseHsts();
             }
 
+
+
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -28,7 +46,7 @@ namespace NewsManagementSystem
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Category}/{action=ListCategories}/{id?}");
 
             app.Run();
         }
