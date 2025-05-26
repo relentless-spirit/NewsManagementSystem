@@ -9,23 +9,22 @@ using Microsoft.EntityFrameworkCore;
 namespace NewsManagementSystem.DAL.Entities;
 
 [Table("Category")]
-[Index("CategoryName", Name = "UQ__Category__8517B2E0248B686B", IsUnique = true)]
 public partial class Category
 {
     [Key]
-    public int CategoryID { get; set; }
+    public short CategoryID { get; set; }
 
     [Required]
     [StringLength(100)]
-    [Unicode(false)]
     public string CategoryName { get; set; }
 
-    [Column(TypeName = "text")]
-    public string CategoryDescription { get; set; }
+    [Required]
+    [StringLength(250)]
+    public string CategoryDesciption { get; set; }
 
-    public int? ParentCategoryID { get; set; }
+    public short? ParentCategoryID { get; set; }
 
-    public bool IsActive { get; set; }
+    public bool? IsActive { get; set; }
 
     [InverseProperty("ParentCategory")]
     public virtual ICollection<Category> InverseParentCategory { get; set; } = new List<Category>();

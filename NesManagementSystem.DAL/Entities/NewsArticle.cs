@@ -12,58 +12,43 @@ namespace NewsManagementSystem.DAL.Entities;
 public partial class NewsArticle
 {
     [Key]
-    public int NewsArticleID { get; set; }
+    [StringLength(20)]
+    public string NewsArticleID { get; set; }
 
-    [Required]
-    [StringLength(255)]
-    [Unicode(false)]
+    [StringLength(400)]
     public string NewsTitle { get; set; }
 
     [Required]
-    [StringLength(255)]
-    [Unicode(false)]
+    [StringLength(150)]
     public string Headline { get; set; }
 
-    [Required]
-    [Column(TypeName = "text")]
+    [Column(TypeName = "datetime")]
+    public DateTime? CreatedDate { get; set; }
+
+    [StringLength(4000)]
     public string NewsContent { get; set; }
 
-    [Required]
-    [StringLength(255)]
-    [Unicode(false)]
+    [StringLength(400)]
     public string NewsSource { get; set; }
 
-    public int CategoryID { get; set; }
+    public short? CategoryID { get; set; }
 
-    [Required]
-    [StringLength(20)]
-    [Unicode(false)]
-    public string NewsStatus { get; set; }
+    public bool? NewsStatus { get; set; }
 
-    [Required]
-    [StringLength(100)]
-    [Unicode(false)]
-    public string CreatedByID { get; set; }
+    public short? CreatedByID { get; set; }
 
-    [Required]
-    [StringLength(100)]
-    [Unicode(false)]
-    public string UpdatedByID { get; set; }
+    public short? UpdatedByID { get; set; }
 
     [Column(TypeName = "datetime")]
-    public DateTime ModifiedDate { get; set; }
+    public DateTime? ModifiedDate { get; set; }
 
     [ForeignKey("CategoryID")]
     [InverseProperty("NewsArticles")]
     public virtual Category Category { get; set; }
 
     [ForeignKey("CreatedByID")]
-    [InverseProperty("NewsArticleCreatedBies")]
+    [InverseProperty("NewsArticles")]
     public virtual SystemAccount CreatedBy { get; set; }
-
-    [ForeignKey("UpdatedByID")]
-    [InverseProperty("NewsArticleUpdatedBies")]
-    public virtual SystemAccount UpdatedBy { get; set; }
 
     [ForeignKey("NewsArticleID")]
     [InverseProperty("NewsArticles")]

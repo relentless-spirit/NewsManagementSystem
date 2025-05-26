@@ -4,8 +4,9 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using NewsManagementSystem.DAL.Entities;
 
-namespace NewsManagementSystem.DAL.Entities;
+namespace NewsManagementSystem.DAL.DBContext;
 
 public partial class FUNewsManagementContext : DbContext
 {
@@ -26,79 +27,70 @@ public partial class FUNewsManagementContext : DbContext
 
     public virtual DbSet<Tag> Tags { get; set; }
 
-    //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-    //        => optionsBuilder.UseSqlServer("Data Source=THAI\\DBI202;Initial Catalog=FUNewsManagement;Integrated Security=True;Encrypt=True");
-    private string GetConnectionString()
-    {
-        IConfiguration config = new ConfigurationBuilder()
-             .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json", true, true)
-                    .Build();
-        var strConn = config["ConnectionStrings:DefaultConnectionStringDB"];
+    //     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    // #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+    //         => optionsBuilder.UseSqlServer("Data Source=THAI\\DBI202;Initial Catalog=FUNewsManagement;Integrated Security=True");
 
-        return strConn;
-    }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    => optionsBuilder.UseSqlServer(GetConnectionString());
-
+    // private string GetConnectionString()
+    // {
+    //     IConfiguration config = new ConfigurationBuilder()
+    //          .SetBasePath(Directory.GetCurrentDirectory())
+    //                 .AddJsonFile("appsettings.json", true, true)
+    //                 .Build();
+    //     var strConn = config["ConnectionStrings:DefaultConnectionStringDB"];
+    //
+    //     return strConn;
+    // }
+    
+    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    // => optionsBuilder.UseSqlServer(GetConnectionString());
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Category>(entity =>
         {
-            entity.HasKey(e => e.CategoryID).HasName("PK__Category__19093A2B4D396994");
-
-            entity.Property(e => e.IsActive).HasDefaultValue(true);
-
-            entity.HasOne(d => d.ParentCategory).WithMany(p => p.InverseParentCategory).HasConstraintName("FK__Category__Parent__5AEE82B9");
+            entity.HasOne(d => d.ParentCategory).WithMany(p => p.InverseParentCategory).HasConstraintName("FK_Category_Category");
         });
 
         modelBuilder.Entity<NewsArticle>(entity =>
         {
-            entity.HasKey(e => e.NewsArticleID).HasName("PK__NewsArti__4CD0926CC3371C55");
-
-            entity.Property(e => e.ModifiedDate).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.NewsStatus).HasDefaultValue("Draft");
-
             entity.HasOne(d => d.Category).WithMany(p => p.NewsArticles)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__NewsArtic__Categ__71D1E811");
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_NewsArticle_Category");
 
-            entity.HasOne(d => d.CreatedBy).WithMany(p => p.NewsArticleCreatedBies)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__NewsArtic__Creat__72C60C4A");
-
-            entity.HasOne(d => d.UpdatedBy).WithMany(p => p.NewsArticleUpdatedBies)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__NewsArtic__Updat__73BA3083");
+            entity.HasOne(d => d.CreatedBy).WithMany(p => p.NewsArticles)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_NewsArticle_SystemAccount");
 
             entity.HasMany(d => d.Tags).WithMany(p => p.NewsArticles)
                 .UsingEntity<Dictionary<string, object>>(
                     "NewsTag",
                     r => r.HasOne<Tag>().WithMany()
                         .HasForeignKey("TagID")
-                        .HasConstraintName("FK__NewsTag__TagID__778AC167"),
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK_NewsTag_Tag"),
                     l => l.HasOne<NewsArticle>().WithMany()
                         .HasForeignKey("NewsArticleID")
                         .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__NewsTag__NewsArt__76969D2E"),
+                        .HasConstraintName("FK_NewsTag_NewsArticle"),
                     j =>
                     {
-                        j.HasKey("NewsArticleID", "TagID").HasName("PK__NewsTag__9A875DC87C3ED885");
+                        j.HasKey("NewsArticleID", "TagID");
                         j.ToTable("NewsTag");
+                        j.IndexerProperty<string>("NewsArticleID").HasMaxLength(20);
                     });
         });
 
         modelBuilder.Entity<SystemAccount>(entity =>
         {
-            entity.HasKey(e => e.AccountID).HasName("PK__SystemAc__349DA5865B13D42C");
+            entity.Property(e => e.AccountID).ValueGeneratedNever();
         });
 
         modelBuilder.Entity<Tag>(entity =>
         {
-            entity.HasKey(e => e.TagID).HasName("PK__Tag__657CFA4CBA4A754D");
+            entity.HasKey(e => e.TagID).HasName("PK_HashTag");
+
+            entity.Property(e => e.TagID).ValueGeneratedNever();
         });
 
         OnModelCreatingPartial(modelBuilder);
