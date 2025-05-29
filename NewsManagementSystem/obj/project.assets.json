@@ -2,6 +2,22 @@
   "version": 3,
   "targets": {
     "net8.0": {
+      "AutoMapper/14.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Options": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/AutoMapper.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/AutoMapper.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -1194,8 +1210,6 @@
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "BusinessObject": "1.0.0",
-          "FluentValidation": "12.0.0",
-          "FluentValidation.AspNetCore": "11.3.0",
           "NewsManagementSystem.DAL": "1.0.0"
         },
         "compile": {
@@ -1225,6 +1239,21 @@
     }
   },
   "libraries": {
+    "AutoMapper/14.0.0": {
+      "sha512": "OC+1neAPM4oCCqQj3g2GJ2shziNNhOkxmNB9cVS8jtx4JbgmRzLcUOxB9Tsz6cVPHugdkHgCaCrTjjSI0Z5sCQ==",
+      "type": "package",
+      "path": "automapper/14.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "automapper.14.0.0.nupkg.sha512",
+        "automapper.nuspec",
+        "icon.png",
+        "lib/net8.0/AutoMapper.dll",
+        "lib/net8.0/AutoMapper.xml"
+      ]
+    },
     "Azure.Core/1.38.0": {
       "sha512": "IuEgCoVA0ef7E4pQtpC3+TkPbzaoQfa77HlfJDmfuaJUCVJmn7fT0izamZiryW5sYUFKizsftIxMkXKbgIcPMQ==",
       "type": "package",
@@ -3246,29 +3275,32 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "AutoMapper >= 14.0.0",
       "BusinessObject >= 1.0.0",
+      "FluentValidation >= 12.0.0",
+      "FluentValidation.AspNetCore >= 11.3.0",
       "NewsManagementSystem.BLL >= 1.0.0",
       "NewsManagementSystem.DAL >= 1.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\THANH AN\\.nuget\\packages\\": {},
+    "C:\\Users\\Thais Mai\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\main\\NewsManagementSystem\\NewsManagementSystem\\NewsManagementSystem.csproj",
+      "projectUniqueName": "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NewsManagementSystem\\NewsManagementSystem\\NewsManagementSystem.csproj",
       "projectName": "NewsManagementSystem",
-      "projectPath": "F:\\main\\NewsManagementSystem\\NewsManagementSystem\\NewsManagementSystem.csproj",
-      "packagesPath": "C:\\Users\\THANH AN\\.nuget\\packages\\",
-      "outputPath": "F:\\main\\NewsManagementSystem\\NewsManagementSystem\\obj\\",
+      "projectPath": "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NewsManagementSystem\\NewsManagementSystem\\NewsManagementSystem.csproj",
+      "packagesPath": "C:\\Users\\Thais Mai\\.nuget\\packages\\",
+      "outputPath": "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NewsManagementSystem\\NewsManagementSystem\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\THANH AN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Thais Mai\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -3283,14 +3315,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "F:\\main\\NewsManagementSystem\\BusinessObject\\BusinessObject.csproj": {
-              "projectPath": "F:\\main\\NewsManagementSystem\\BusinessObject\\BusinessObject.csproj"
+            "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NewsManagementSystem\\BusinessObject\\BusinessObject.csproj": {
+              "projectPath": "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NewsManagementSystem\\BusinessObject\\BusinessObject.csproj"
             },
-            "F:\\main\\NewsManagementSystem\\NesManagementSystem.DAL\\NewsManagementSystem.DAL.csproj": {
-              "projectPath": "F:\\main\\NewsManagementSystem\\NesManagementSystem.DAL\\NewsManagementSystem.DAL.csproj"
+            "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NewsManagementSystem\\NesManagementSystem.DAL\\NewsManagementSystem.DAL.csproj": {
+              "projectPath": "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NewsManagementSystem\\NesManagementSystem.DAL\\NewsManagementSystem.DAL.csproj"
             },
-            "F:\\main\\NewsManagementSystem\\NewsManagementSystem.BLL\\NewsManagementSystem.BLL.csproj": {
-              "projectPath": "F:\\main\\NewsManagementSystem\\NewsManagementSystem.BLL\\NewsManagementSystem.BLL.csproj"
+            "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NewsManagementSystem\\NewsManagementSystem.BLL\\NewsManagementSystem.BLL.csproj": {
+              "projectPath": "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NewsManagementSystem\\NewsManagementSystem.BLL\\NewsManagementSystem.BLL.csproj"
             }
           }
         }
@@ -3305,11 +3337,25 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.300"
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net8.0": {
         "targetAlias": "net8.0",
+        "dependencies": {
+          "AutoMapper": {
+            "target": "Package",
+            "version": "[14.0.0, )"
+          },
+          "FluentValidation": {
+            "target": "Package",
+            "version": "[12.0.0, )"
+          },
+          "FluentValidation.AspNetCore": {
+            "target": "Package",
+            "version": "[11.3.0, )"
+          }
+        },
         "imports": [
           "net461",
           "net462",
@@ -3329,7 +3375,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.204/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,4 +1,5 @@
-﻿@model List<BusinessObject.Entities.SystemAccount>  
+﻿@model AccountManagementViewModel
+
 
 @{  
     Layout = "_Layout"; // hoặc Layout = null; nếu bạn chưa cần  
@@ -9,38 +10,105 @@
 <head>  
     <title>Accounts</title>  
 </head>  
-<body>  
-    <div>  
-        <ul>  
-            @if (Model != null)  
-            {  
-                <table>  
-                    <thead>  
-                        <tr>  
-                            <th>ID</th>  
-                            <th>Name</th>  
-                            <th>Email</th>  
-                            <th>Role</th>  
-                        </tr>  
-                    </thead>  
-                    <tbody>  
-                        @foreach (var account in Model)  
-                        {  
-                            <tr>  
-                                <td>@account.AccountID</td>  
-                                <td>@account.AccountName</td>  
-                                <td>@account.AccountEmail</td>  
-                                <td>@account.AccountRole</td>  
-                            </tr>  
-                        }  
-                    </tbody>  
-                </table>  
-            }  
-            else  
-            {  
-                <li>No categories found.</li>  
-            }  
-        </ul>  
-    </div>  
+<body>
+<div>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createAccountModal">
+        Create new account
+    </button>
+</div>
+
+<div>
+    <ul>
+        @if (Model.Accounts != null)
+        {
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var account in Model.Accounts)
+                {
+                    <tr>
+                        <td>@account.AccountID</td>
+                        <td>@account.AccountName</td>
+                        <td>@account.AccountEmail</td>
+                        <td>@account.AccountRole</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <li>No categories found.</li>
+        }
+    </ul>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="createAccountModal" tabindex="-1" role="dialog" aria-labelledby="createAccountModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            @* <div class="modal-header"> *@
+            @*     <h5 class="modal-title" id="createAccountModalLabel">Create New Account</h5> *@
+            @*     <button type="button" class="close" data-dismiss="modal" aria-label="Close"> *@
+            @*         <span aria-hidden="true">&times;</span> *@
+            @*     </button> *@
+            @* </div> *@
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0">Create New Account</h4>
+                        </div>
+                        <div class="card-body">
+                            <form class="w-100 h-100 d-flex flex-column justify-content-between" asp-controller="SystemAccount" asp-action="CreateSystemAccount" method="post">
+                                <div class="form-group mb-3">
+                                    <label asp-for="CreateAccountRequest.AccountID" class="form-label">ID</label>
+                                    <input asp-for="CreateAccountRequest.AccountID" class="form-control" placeholder="Enter category name" />
+                                    <span asp-validation-for="CreateAccountRequest.AccountID" class="text-danger"></span>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label asp-for="CreateAccountRequest.AccountName" class="form-label">Name</label>
+                                    <input asp-for="CreateAccountRequest.AccountName" class="form-control" rows="4" placeholder="Enter category description"></input>
+                                    <span asp-validation-for="CreateAccountRequest.AccountName" class="text-danger"></span>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label asp-for="CreateAccountRequest.AccountEmail" class="form-label">Email</label>
+                                    <input type="email" asp-for="CreateAccountRequest.AccountEmail" class="form-control" rows="4" placeholder="Enter category description"></input>
+                                    <span asp-validation-for="CreateAccountRequest.AccountEmail" class="text-danger"></span>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label asp-for="CreateAccountRequest.AccountRole" class="form-label">Role</label>
+                                    <select asp-for="CreateAccountRequest.AccountRole" class="form-control" asp-items="ViewBag.AccountRoleList">
+                                        <option value="">-- Select Role --</option>
+                                        <option value="1">Staff</option>
+                                        <option value="2">Lecture</option>
+                                    </select>
+                                    <span asp-validation-for="CreateAccountRequest.AccountRole" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label asp-for="CreateAccountRequest.AccountPassword" class="form-label">Password</label>
+                                    <input type="password" asp-for="CreateAccountRequest.AccountPassword" class="form-control" rows="4" placeholder="Enter category description"></input>
+                                    <span asp-validation-for="CreateAccountRequest.AccountPassword" class="text-danger"></span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <a asp-controller="SystemAccount" asp-action="Accounts" class="btn btn-secondary">Cancel</a>
+                                    <button type="submit" class="btn btn-primary">Create</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>  
 </html>

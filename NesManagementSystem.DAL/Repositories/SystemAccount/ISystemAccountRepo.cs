@@ -9,7 +9,8 @@ namespace NewsManagementSystem.DAL.SystemAccount
     public interface ISystemAccountRepo
     {
         Task<List<BusinessObject.Entities.SystemAccount>> GetSystemAccountsAsync();
-        Task<BusinessObject.Entities.SystemAccount?> GetSystemAccountByNameAsync(string systemAccountName);
+        Task<List<BusinessObject.Entities.SystemAccount?>> GetSystemAccountByNameAsync(string systemAccountName);
         Task CreateSystemAccountAsync(BusinessObject.Entities.SystemAccount systemAccount);
+        Task<BusinessObject.Entities.SystemAccount?> GetSystemAccountByIdAsync(short id);
     }
 }

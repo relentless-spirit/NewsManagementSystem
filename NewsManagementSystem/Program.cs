@@ -1,9 +1,13 @@
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using NewsManagementSystem.BLL.Services.Category;
 using NewsManagementSystem.BLL.Services.SystemAccount;
 using NewsManagementSystem.DAL.DBContext;
 using NewsManagementSystem.DAL.Repositories.Category;
 using NewsManagementSystem.DAL.SystemAccount;
+using NewsManagementSystem.Mapper;
+using NewsManagementSystem.Models;
+using NewsManagementSystem.Validation;
 
 namespace NewsManagementSystem
 {
@@ -28,7 +32,12 @@ namespace NewsManagementSystem
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<ISystemAccountService, SystemAccountService>();
 
-
+            //Register validators
+            builder.Services.AddScoped<IValidator<CreateAccountRequest>, CreateAccountReqValidator>();
+            
+            //Register AutoMapper
+            builder.Services.AddAutoMapper(typeof(AccountProfile));
+            
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

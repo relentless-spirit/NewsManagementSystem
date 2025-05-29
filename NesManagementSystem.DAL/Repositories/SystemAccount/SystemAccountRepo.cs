@@ -15,12 +15,18 @@ namespace NewsManagementSystem.DAL.SystemAccount
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
-        public Task CreateSystemAccountAsync(BusinessObject.Entities.SystemAccount systemAccount)
+        public async Task CreateSystemAccountAsync(BusinessObject.Entities.SystemAccount systemAccount)
         {
-            throw new NotImplementedException();
+            await _context.SystemAccounts.AddAsync(systemAccount);
+            await _context.SaveChangesAsync();
         }
 
-        public Task<BusinessObject.Entities.SystemAccount?> GetSystemAccountByNameAsync(string systemAccountName)
+        public async Task<BusinessObject.Entities.SystemAccount?> GetSystemAccountByIdAsync(short id)
+        {
+             return await _context.SystemAccounts.FindAsync(id);
+        }
+
+        public Task<List<BusinessObject.Entities.SystemAccount?>> GetSystemAccountByNameAsync(string systemAccountName)
         {
             throw new NotImplementedException();
         }

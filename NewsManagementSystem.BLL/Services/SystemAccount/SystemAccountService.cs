@@ -15,9 +15,14 @@ namespace NewsManagementSystem.BLL.Services.SystemAccount
             _systemAccountRepo = systemAccountRepo;
         }
 
-        public Task CreateSystemAccountAsync(BusinessObject.Entities.SystemAccount systemAccount)
+        public async Task CreateSystemAccountAsync(BusinessObject.Entities.SystemAccount systemAccount)
         {
-            throw new NotImplementedException();
+            await _systemAccountRepo.CreateSystemAccountAsync(systemAccount);
+        }
+
+        public async Task<BusinessObject.Entities.SystemAccount?> GetSystemAccountByIdAsync(short id)
+        {
+            return await _systemAccountRepo.GetSystemAccountByIdAsync(id);
         }
 
         public Task<BusinessObject.Entities.SystemAccount> GetSystemAccountByNameAsync(string systemAccountName)
