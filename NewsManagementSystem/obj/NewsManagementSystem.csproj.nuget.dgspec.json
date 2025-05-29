@@ -1,23 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NewsManagementSystem\\NewsManagementSystem.csproj": {}
+    "C:\\Users\\Admin\\RiderProjects\\NewsManagementSystem\\NewsManagementSystem\\NewsManagementSystem.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NesManagementSystem.DAL\\NewsManagementSystem.DAL.csproj": {
+    "C:\\Users\\Admin\\RiderProjects\\NewsManagementSystem\\NesManagementSystem.DAL\\NewsManagementSystem.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NesManagementSystem.DAL\\NewsManagementSystem.DAL.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\RiderProjects\\NewsManagementSystem\\NesManagementSystem.DAL\\NewsManagementSystem.DAL.csproj",
         "projectName": "NewsManagementSystem.DAL",
-        "projectPath": "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NesManagementSystem.DAL\\NewsManagementSystem.DAL.csproj",
-        "packagesPath": "C:\\Users\\Thais Mai\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NesManagementSystem.DAL\\obj\\",
+        "projectPath": "C:\\Users\\Admin\\RiderProjects\\NewsManagementSystem\\NesManagementSystem.DAL\\NewsManagementSystem.DAL.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Admin\\RiderProjects\\NewsManagementSystem\\NesManagementSystem.DAL\\obj\\",
         "projectStyle": "PackageReference",
+        "UsingMicrosoftNETSdk": false,
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Thais Mai\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +27,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -43,8 +45,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.200"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -95,24 +96,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NewsManagementSystem.BLL\\NewsManagementSystem.BLL.csproj": {
+    "C:\\Users\\Admin\\RiderProjects\\NewsManagementSystem\\NewsManagementSystem.BLL\\NewsManagementSystem.BLL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NewsManagementSystem.BLL\\NewsManagementSystem.BLL.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\RiderProjects\\NewsManagementSystem\\NewsManagementSystem.BLL\\NewsManagementSystem.BLL.csproj",
         "projectName": "NewsManagementSystem.BLL",
-        "projectPath": "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NewsManagementSystem.BLL\\NewsManagementSystem.BLL.csproj",
-        "packagesPath": "C:\\Users\\Thais Mai\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NewsManagementSystem.BLL\\obj\\",
+        "projectPath": "C:\\Users\\Admin\\RiderProjects\\NewsManagementSystem\\NewsManagementSystem.BLL\\NewsManagementSystem.BLL.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Admin\\RiderProjects\\NewsManagementSystem\\NewsManagementSystem.BLL\\obj\\",
         "projectStyle": "PackageReference",
+        "UsingMicrosoftNETSdk": false,
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Thais Mai\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -121,14 +123,15 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NesManagementSystem.DAL\\NewsManagementSystem.DAL.csproj": {
-                "projectPath": "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NesManagementSystem.DAL\\NewsManagementSystem.DAL.csproj"
+              "C:\\Users\\Admin\\RiderProjects\\NewsManagementSystem\\NesManagementSystem.DAL\\NewsManagementSystem.DAL.csproj": {
+                "projectPath": "C:\\Users\\Admin\\RiderProjects\\NewsManagementSystem\\NesManagementSystem.DAL\\NewsManagementSystem.DAL.csproj"
               }
             }
           }
@@ -142,8 +145,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.200"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -174,24 +176,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NewsManagementSystem\\NewsManagementSystem.csproj": {
+    "C:\\Users\\Admin\\RiderProjects\\NewsManagementSystem\\NewsManagementSystem\\NewsManagementSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NewsManagementSystem\\NewsManagementSystem.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\RiderProjects\\NewsManagementSystem\\NewsManagementSystem\\NewsManagementSystem.csproj",
         "projectName": "NewsManagementSystem",
-        "projectPath": "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NewsManagementSystem\\NewsManagementSystem.csproj",
-        "packagesPath": "C:\\Users\\Thais Mai\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NewsManagementSystem\\obj\\",
+        "projectPath": "C:\\Users\\Admin\\RiderProjects\\NewsManagementSystem\\NewsManagementSystem\\NewsManagementSystem.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Admin\\RiderProjects\\NewsManagementSystem\\NewsManagementSystem\\obj\\",
         "projectStyle": "PackageReference",
+        "UsingMicrosoftNETSdk": false,
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Thais Mai\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -200,17 +203,18 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NesManagementSystem.DAL\\NewsManagementSystem.DAL.csproj": {
-                "projectPath": "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NesManagementSystem.DAL\\NewsManagementSystem.DAL.csproj"
+              "C:\\Users\\Admin\\RiderProjects\\NewsManagementSystem\\NesManagementSystem.DAL\\NewsManagementSystem.DAL.csproj": {
+                "projectPath": "C:\\Users\\Admin\\RiderProjects\\NewsManagementSystem\\NesManagementSystem.DAL\\NewsManagementSystem.DAL.csproj"
               },
-              "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NewsManagementSystem.BLL\\NewsManagementSystem.BLL.csproj": {
-                "projectPath": "D:\\Projects\\ASP.NET\\NewsManagementSystem\\NewsManagementSystem.BLL\\NewsManagementSystem.BLL.csproj"
+              "C:\\Users\\Admin\\RiderProjects\\NewsManagementSystem\\NewsManagementSystem.BLL\\NewsManagementSystem.BLL.csproj": {
+                "projectPath": "C:\\Users\\Admin\\RiderProjects\\NewsManagementSystem\\NewsManagementSystem.BLL\\NewsManagementSystem.BLL.csproj"
               }
             }
           }
@@ -224,8 +228,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.200"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -249,7 +252,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

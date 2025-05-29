@@ -1,0 +1,16 @@
+C:\Users\Admin\RiderProjects\NewsManagementSystem\NewsManagementSystem.BLL\bin\Debug\net8.0\NewsManagementSystem.BLL.deps.json
+C:\Users\Admin\RiderProjects\NewsManagementSystem\NewsManagementSystem.BLL\bin\Debug\net8.0\NewsManagementSystem.BLL.dll
+C:\Users\Admin\RiderProjects\NewsManagementSystem\NewsManagementSystem.BLL\bin\Debug\net8.0\NewsManagementSystem.BLL.pdb
+C:\Users\Admin\RiderProjects\NewsManagementSystem\NewsManagementSystem.BLL\bin\Debug\net8.0\NewsManagementSystem.DAL.dll
+C:\Users\Admin\RiderProjects\NewsManagementSystem\NewsManagementSystem.BLL\bin\Debug\net8.0\NewsManagementSystem.DAL.pdb
+C:\Users\Admin\RiderProjects\NewsManagementSystem\NewsManagementSystem.BLL\obj\Debug\net8.0\NewsManagementSystem.BLL.csproj.AssemblyReference.cache
+C:\Users\Admin\RiderProjects\NewsManagementSystem\NewsManagementSystem.BLL\obj\Debug\net8.0\NewsManagementSystem.BLL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\RiderProjects\NewsManagementSystem\NewsManagementSystem.BLL\obj\Debug\net8.0\NewsManagementSystem.BLL.AssemblyInfoInputs.cache
+C:\Users\Admin\RiderProjects\NewsManagementSystem\NewsManagementSystem.BLL\obj\Debug\net8.0\NewsManagementSystem.BLL.AssemblyInfo.cs
+C:\Users\Admin\RiderProjects\NewsManagementSystem\NewsManagementSystem.BLL\obj\Debug\net8.0\NewsManagementSystem.BLL.csproj.CoreCompileInputs.cache
+C:\Users\Admin\RiderProjects\NewsManagementSystem\NewsManagementSystem.BLL\obj\Debug\net8.0\NewsManagementSystem.BLL.sourcelink.json
+C:\Users\Admin\RiderProjects\NewsManagementSystem\NewsManagementSystem.BLL\obj\Debug\net8.0\NewsMana.C562D4C7.Up2Date
+C:\Users\Admin\RiderProjects\NewsManagementSystem\NewsManagementSystem.BLL\obj\Debug\net8.0\NewsManagementSystem.BLL.dll
+C:\Users\Admin\RiderProjects\NewsManagementSystem\NewsManagementSystem.BLL\obj\Debug\net8.0\refint\NewsManagementSystem.BLL.dll
+C:\Users\Admin\RiderProjects\NewsManagementSystem\NewsManagementSystem.BLL\obj\Debug\net8.0\NewsManagementSystem.BLL.pdb
+C:\Users\Admin\RiderProjects\NewsManagementSystem\NewsManagementSystem.BLL\obj\Debug\net8.0\ref\NewsManagementSystem.BLL.dll
