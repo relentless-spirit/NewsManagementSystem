@@ -1,4 +1,5 @@
-﻿using NewsManagementSystem.DAL.Repositories.Category;
+﻿using BusinessObject.Entities;
+using NewsManagementSystem.DAL.Repositories.Category;
 
 namespace NewsManagementSystem.BLL.Services.Category;
 
@@ -12,28 +13,79 @@ public class CategoryService : ICategoryService
     }
 
 
-    public async Task<List<DAL.Entities.Category>> GetCategoriesAsync()
+    public async Task<List<BusinessObject.Entities.Category>> GetCategoriesAsync()
     {
         return await _categoryRepo.GetCategoriesAsync();
     }
 
-    public async Task<DAL.Entities.Category?> GetCategoryByNameAsync(string name)
+    public async Task<BusinessObject.Entities.Category?> GetCategoryByNameAsync(string name)
     {
-        throw new NotImplementedException();
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            throw new ArgumentException("Category name cannot be null or empty.", nameof(name));
+        }
+
+        return await _categoryRepo.GetCategoryByNameAsync(name);
     }
 
-    public async Task CreateCategoryAsync(DAL.Entities.Category category)
+    public async Task CreateCategoryAsync(BusinessObject.Entities.Category category)
     {
-        throw new NotImplementedException();
+        if (category == null)
+        {
+            throw new ArgumentNullException(nameof(category));
+        }
+        var categoryModel = new BusinessObject.Entities.Category
+        {
+            CategoryName = category.CategoryName,
+            CategoryDesciption = category.CategoryDesciption,
+            IsActive = true
+        };
+
+        await _categoryRepo.CreateCategoryAsync(categoryModel);
+
+        categoryModel.ParentCategoryID = categoryModel.CategoryID;
+
+        await _categoryRepo.UpdateCategoryAsync(categoryModel);
     }
 
-    public async Task UpdateCategoryAsync(DAL.Entities.Category category)
+    public async Task UpdateCategoryAsync(BusinessObject.Entities.Category category)
     {
-        throw new NotImplementedException();
+        if (category == null)
+        {
+            throw new ArgumentNullException(nameof(category));
+        }
+
+        await _categoryRepo.UpdateCategoryAsync(category);
     }
 
-    public async Task DeleteCategoryAsync(DAL.Entities.Category category)
+    public async Task DeleteCategoryAsync(BusinessObject.Entities.Category category)
     {
-        throw new NotImplementedException();
+        if (category == null)
+        {
+            throw new ArgumentNullException(nameof(category));
+        }
+
+        await _categoryRepo.DeleteCategoryAsync(category);
     }
+
+    public async Task<BusinessObject.Entities.Category?> GetCategoryByIdAsync(short categoryId)
+    {
+        if (categoryId <= 0)
+        {
+            throw new ArgumentException("Category ID must be greater than zero.", nameof(categoryId));
+        }
+
+        return await _categoryRepo.GetCategoryByIdAsync(categoryId);
+    }
+
+    public async Task<bool> CategoryExistsAsync(short categoryId)
+    {
+        if (categoryId <= 0)
+        {
+            throw new ArgumentException("Category ID must be greater than zero.", nameof(categoryId));
+        }
+
+        return await _categoryRepo.CategoryExistsAsync(categoryId);
+    }
+
 }

@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.36105.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsManagementSystem", "NewsManagementSystem\NewsManagementSystem.csproj", "{614D269F-A2F8-4D94-A680-52884BFA8B8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsManagementSystem", "NewsManagementSystem\NewsManagementSystem.csproj", "{614D269F-A2F8-4D94-A680-52884BFA8B8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsManagementSystem.BLL", "NewsManagementSystem.BLL\NewsManagementSystem.BLL.csproj", "{A84F9998-A5D6-460B-A22D-2AC0B25A1560}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsManagementSystem.BLL", "NewsManagementSystem.BLL\NewsManagementSystem.BLL.csproj", "{A84F9998-A5D6-460B-A22D-2AC0B25A1560}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsManagementSystem.DAL", "NesManagementSystem.DAL\NewsManagementSystem.DAL.csproj", "{A0A5AA9C-3EB1-4B8C-A604-D253457EF727}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsManagementSystem.DAL", "NesManagementSystem.DAL\NewsManagementSystem.DAL.csproj", "{A0A5AA9C-3EB1-4B8C-A604-D253457EF727}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessObject", "BusinessObject\BusinessObject.csproj", "{8584A391-C343-41C5-9AAB-910113438829}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{A0A5AA9C-3EB1-4B8C-A604-D253457EF727}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0A5AA9C-3EB1-4B8C-A604-D253457EF727}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0A5AA9C-3EB1-4B8C-A604-D253457EF727}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8584A391-C343-41C5-9AAB-910113438829}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8584A391-C343-41C5-9AAB-910113438829}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8584A391-C343-41C5-9AAB-910113438829}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8584A391-C343-41C5-9AAB-910113438829}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

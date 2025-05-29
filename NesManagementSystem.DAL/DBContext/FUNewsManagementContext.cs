@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using NewsManagementSystem.DAL.Entities;
+using BusinessObject.Entities;
 
 namespace NewsManagementSystem.DAL.DBContext;
 
