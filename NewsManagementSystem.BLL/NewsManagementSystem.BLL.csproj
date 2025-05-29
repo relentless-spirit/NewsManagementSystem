@@ -12,7 +12,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\BusinessObject\BusinessObject.csproj" />
+      <ProjectReference Include="..\BusinessObject\BusinessObject.csproj">
+        <Private>True</Private>
+      </ProjectReference>
       <ProjectReference Include="..\NesManagementSystem.DAL\NewsManagementSystem.DAL.csproj" />
     </ItemGroup>
 

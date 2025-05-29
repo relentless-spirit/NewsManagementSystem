@@ -1,0 +1,46 @@
+﻿@model List<BusinessObject.Entities.SystemAccount>  
+
+@{  
+    Layout = "_Layout"; // hoặc Layout = null; nếu bạn chưa cần  
+}  
+
+<!DOCTYPE html>  
+<html>  
+<head>  
+    <title>Accounts</title>  
+</head>  
+<body>  
+    <div>  
+        <ul>  
+            @if (Model != null)  
+            {  
+                <table>  
+                    <thead>  
+                        <tr>  
+                            <th>ID</th>  
+                            <th>Name</th>  
+                            <th>Email</th>  
+                            <th>Role</th>  
+                        </tr>  
+                    </thead>  
+                    <tbody>  
+                        @foreach (var account in Model)  
+                        {  
+                            <tr>  
+                                <td>@account.AccountID</td>  
+                                <td>@account.AccountName</td>  
+                                <td>@account.AccountEmail</td>  
+                                <td>@account.AccountRole</td>  
+                            </tr>  
+                        }  
+                    </tbody>  
+                </table>  
+            }  
+            else  
+            {  
+                <li>No categories found.</li>  
+            }  
+        </ul>  
+    </div>  
+</body>  
+</html>

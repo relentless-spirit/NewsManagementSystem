@@ -11,3 +11,16 @@ C:\Users\HP\RiderProjects\NewsManagementSystem\BusinessObject\obj\Debug\net8.0\B
 C:\Users\HP\RiderProjects\NewsManagementSystem\BusinessObject\obj\Debug\net8.0\refint\BusinessObject.dll
 C:\Users\HP\RiderProjects\NewsManagementSystem\BusinessObject\obj\Debug\net8.0\BusinessObject.pdb
 C:\Users\HP\RiderProjects\NewsManagementSystem\BusinessObject\obj\Debug\net8.0\ref\BusinessObject.dll
+F:\main\NewsManagementSystem\BusinessObject\bin\Debug\net8.0\BusinessObject.deps.json
+F:\main\NewsManagementSystem\BusinessObject\bin\Debug\net8.0\BusinessObject.dll
+F:\main\NewsManagementSystem\BusinessObject\bin\Debug\net8.0\BusinessObject.pdb
+F:\main\NewsManagementSystem\BusinessObject\obj\Debug\net8.0\BusinessObject.csproj.AssemblyReference.cache
+F:\main\NewsManagementSystem\BusinessObject\obj\Debug\net8.0\BusinessObject.GeneratedMSBuildEditorConfig.editorconfig
+F:\main\NewsManagementSystem\BusinessObject\obj\Debug\net8.0\BusinessObject.AssemblyInfoInputs.cache
+F:\main\NewsManagementSystem\BusinessObject\obj\Debug\net8.0\BusinessObject.AssemblyInfo.cs
+F:\main\NewsManagementSystem\BusinessObject\obj\Debug\net8.0\BusinessObject.csproj.CoreCompileInputs.cache
+F:\main\NewsManagementSystem\BusinessObject\obj\Debug\net8.0\BusinessObject.sourcelink.json
+F:\main\NewsManagementSystem\BusinessObject\obj\Debug\net8.0\BusinessObject.dll
+F:\main\NewsManagementSystem\BusinessObject\obj\Debug\net8.0\refint\BusinessObject.dll
+F:\main\NewsManagementSystem\BusinessObject\obj\Debug\net8.0\BusinessObject.pdb
+F:\main\NewsManagementSystem\BusinessObject\obj\Debug\net8.0\ref\BusinessObject.dll

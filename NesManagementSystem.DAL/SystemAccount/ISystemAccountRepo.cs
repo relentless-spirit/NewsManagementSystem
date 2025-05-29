@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace NewsManagementSystem.DAL.SystemAccount
+{
+    public interface ISystemAccountRepo
+    {
+        Task<List<BusinessObject.Entities.SystemAccount>> GetSystemAccountsAsync();
+        Task<BusinessObject.Entities.SystemAccount?> GetSystemAccountByNameAsync(string systemAccountName);
+        Task CreateSystemAccountAsync(BusinessObject.Entities.SystemAccount systemAccount);
+    }
+}
