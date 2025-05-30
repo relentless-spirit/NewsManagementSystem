@@ -1,4 +1,5 @@
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using NewsManagementSystem.BLL.Services.Category;
 using NewsManagementSystem.BLL.Services.SystemAccount;
@@ -17,6 +18,8 @@ namespace NewsManagementSystem
         {
             var builder = WebApplication.CreateBuilder(args);
 
+           
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             
@@ -34,7 +37,8 @@ namespace NewsManagementSystem
 
             //Register validators
             builder.Services.AddScoped<IValidator<CreateAccountRequest>, CreateAccountReqValidator>();
-            
+            builder.Services.AddScoped<IValidator<UpdateSystemAccountRequest>, UpdateSystemAccountRequestValidator>();
+
             //Register AutoMapper
             builder.Services.AddAutoMapper(typeof(AccountProfile));
             

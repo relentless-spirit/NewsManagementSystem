@@ -4,6 +4,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using NewsManagementSystem.BLL.Services.SystemAccount;
 using NewsManagementSystem.Models;
 
@@ -13,13 +14,15 @@ namespace NewsManagementSystem.Controllers
     {
         private readonly ISystemAccountService _systemAccountService;
         private readonly IValidator<CreateAccountRequest> _createAccountRequestValidator;
+        private readonly IValidator<UpdateSystemAccountRequest> _updateSystemAccountRequestValidator;
         private readonly IMapper _mapper;
 
-        public SystemAccountController(ISystemAccountService systemAccountService, IValidator<CreateAccountRequest> createAccountRequestValidator, IMapper mapper)
+        public SystemAccountController(ISystemAccountService systemAccountService, IValidator<CreateAccountRequest> createAccountRequestValidator, IMapper mapper, IValidator<UpdateSystemAccountRequest> updateAccountRequestValidator)
         {
             _systemAccountService = systemAccountService;
             _createAccountRequestValidator = createAccountRequestValidator;
             _mapper = mapper;
+            _updateSystemAccountRequestValidator = updateAccountRequestValidator;
         }
         public async Task<IActionResult> Accounts()
         {
@@ -34,7 +37,7 @@ namespace NewsManagementSystem.Controllers
             return View();
         }
 
-        
+
         [HttpPost]
         public async Task<IActionResult> CreateSystemAccount(CreateAccountRequest accountRequest)
         {
@@ -46,6 +49,79 @@ namespace NewsManagementSystem.Controllers
             }
             var systemAccount = _mapper.Map<SystemAccount>(accountRequest);
             await _systemAccountService.CreateSystemAccountAsync(systemAccount);
+            return RedirectToAction("Accounts");
+        }
+
+        // GET: Edit
+        //public async Task<IActionResult> Edit(short id)
+        //{
+        //    if (id <= 0)
+        //        return BadRequest("Invalid account ID.");
+
+        //    var account = await _systemAccountService.GetSystemAccountByIdAsync(id);
+        //    if (account == null)
+        //        return NotFound("Account not found.");
+
+        //    return View(account);
+        //}
+
+        // POST: Edit (Update Account from modal)
+        [HttpPost]
+
+        public async Task<IActionResult> Edit(UpdateSystemAccountRequest account)
+        {
+
+            //ValidationResult result = await _updateSystemAccountRequestValidator.ValidateAsync(account);
+            //if (!result.IsValid)
+            //{
+            //    result.AddToModelState(this.ModelState);
+
+            //    // Lấy lại danh sách accounts để render lại view
+            //    var accounts = await _systemAccountService.GetSystemAccountsAsync();
+            //    var viewModel = new AccountManagementViewModel
+            //    {
+            //        Accounts = accounts,
+            //        UpdateSystemAccountRequest = account
+            //    };
+            //    // Đặt cờ để tự động mở lại modal khi có lỗi
+            //    ViewBag.ShowUpdateModal = true;
+            //    return View("Accounts", viewModel);
+            //}
+
+
+            //var systemAccount = _mapper.Map<SystemAccount>(account);
+            //await _systemAccountService.UpdateSystemAccountAsync(systemAccount);
+
+            //return RedirectToAction("Accounts");
+            if (!ModelState.IsValid)
+            {
+                // Lấy lại danh sách accounts để render lại view
+                var accounts = await _systemAccountService.GetSystemAccountsAsync();
+                var viewModel = new AccountManagementViewModel
+                {
+                    Accounts = accounts,
+                    UpdateSystemAccountRequest = account
+                };
+                ViewBag.ShowUpdateModal = true;
+                return View("Accounts", viewModel);
+            }
+
+            // Map sang entity và update
+            var systemAccount = _mapper.Map<SystemAccount>(account);
+            await _systemAccountService.UpdateSystemAccountAsync(systemAccount);
+
+            return RedirectToAction("Accounts");
+        }
+        [HttpPost]
+        public async Task<IActionResult> Delete(short id)
+        {
+            var account = await _systemAccountService.GetSystemAccountByIdAsync(id);
+            if (account == null)
+            {
+                return NotFound();
+            }
+
+            await _systemAccountService.DeleteSystemAccountAsync(account);
             return RedirectToAction("Accounts");
         }
 

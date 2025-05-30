@@ -9,5 +9,6 @@ public class AccountProfile : Profile
     public AccountProfile()
     {
         CreateMap<CreateAccountRequest, SystemAccount>();
+       CreateMap<UpdateSystemAccountRequest, SystemAccount>();
     }
 }

@@ -20,6 +20,11 @@ namespace NewsManagementSystem.BLL.Services.SystemAccount
             await _systemAccountRepo.CreateSystemAccountAsync(systemAccount);
         }
 
+        public async Task DeleteSystemAccountAsync(BusinessObject.Entities.SystemAccount systemAccount)
+        {
+            await _systemAccountRepo.DeleteSystemAccountAsync(systemAccount);
+        }
+
         public async Task<BusinessObject.Entities.SystemAccount?> GetSystemAccountByIdAsync(short id)
         {
             return await _systemAccountRepo.GetSystemAccountByIdAsync(id);
@@ -34,6 +39,12 @@ namespace NewsManagementSystem.BLL.Services.SystemAccount
         {
             return await _systemAccountRepo.GetSystemAccountsAsync();
         }
+
+        public async Task UpdateSystemAccountAsync(BusinessObject.Entities.SystemAccount systemAccount)
+        {
+           await _systemAccountRepo.UpdateSystemAccountAsync(systemAccount);
+        }
+
     }
 
 }

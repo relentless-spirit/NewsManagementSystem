@@ -12,5 +12,9 @@ namespace NewsManagementSystem.DAL.SystemAccount
         Task<List<BusinessObject.Entities.SystemAccount?>> GetSystemAccountByNameAsync(string systemAccountName);
         Task CreateSystemAccountAsync(BusinessObject.Entities.SystemAccount systemAccount);
         Task<BusinessObject.Entities.SystemAccount?> GetSystemAccountByIdAsync(short id);
+
+        Task UpdateSystemAccountAsync(BusinessObject.Entities.SystemAccount systemAccount);
+
+        Task DeleteSystemAccountAsync(BusinessObject.Entities.SystemAccount systemAccount);
     }
 }
