@@ -15,9 +15,10 @@ public class CategoryController : Controller
         _logger = logger;
         _categoryService = categoryService;
     }
-    public IActionResult Create()
+    [HttpGet]
+    public async Task<IActionResult> Create()
     {
-        return View();
+        return PartialView();
     }
     // GET
     public async Task<IActionResult> ListCategories()
@@ -29,63 +30,42 @@ public class CategoryController : Controller
     public async Task<IActionResult> Create(Category category)
     {
         if (!ModelState.IsValid)
-        {
-            return View(category);
-        }
+            return PartialView(category);
 
-        // Check if the category name already exists
-        var existingCategory = await _categoryService.GetCategoryByNameAsync(category.CategoryName);
-        if (existingCategory != null)
+        var existing = await _categoryService.GetCategoryByNameAsync(category.CategoryName);
+        if (existing != null)
         {
             ModelState.AddModelError("CategoryName", "A category with this name already exists.");
-            return View(category);
+            return PartialView(category);
         }
-
 
         await _categoryService.CreateCategoryAsync(category);
-        
-        return RedirectToAction(nameof(ListCategories));
+        return Json(new { success = true });
     }
+    [HttpGet]
     public async Task<IActionResult> Edit(short id)
     {
-        if (id <= 0)
-        {
-            return BadRequest("Invalid category ID.");
-        }
-
         var category = await _categoryService.GetCategoryByIdAsync(id);
         if (category == null)
-        {
-            return NotFound("Category not found.");
-        }
+            return NotFound();
 
-        return View(category);
+        return PartialView(category);
     }
     [HttpPost]
     public async Task<IActionResult> Edit(Category category)
     {
         if (!ModelState.IsValid)
-        {
-            return View(category);
-        }
+            return PartialView(category);
 
-        // Check if the category exists
-        var existingCategory = await _categoryService.GetCategoryByIdAsync(category.CategoryID);
-        if (existingCategory == null)
-        {
-            return NotFound("Category not found.");
-        }
-
-        // Check for duplicate category name (excluding the current category)
-        var duplicateCategory = await _categoryService.GetCategoryByNameAsync(category.CategoryName);
-        if (duplicateCategory != null && duplicateCategory.CategoryID != category.CategoryID)
+        var duplicate = await _categoryService.GetCategoryByNameAsync(category.CategoryName);
+        if (duplicate != null && duplicate.CategoryID != category.CategoryID)
         {
             ModelState.AddModelError("CategoryName", "A category with this name already exists.");
-            return View(category);
+            return PartialView(category);
         }
 
         await _categoryService.UpdateCategoryAsync(category);
-        return RedirectToAction(nameof(ListCategories));
+        return Json(new { success = true });
     }
     public async Task<IActionResult> Delete(short id)
     {
