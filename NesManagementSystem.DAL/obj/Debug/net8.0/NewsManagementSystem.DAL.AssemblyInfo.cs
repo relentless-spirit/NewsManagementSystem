@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NewsManagementSystem.DAL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+10e086488586eb2cb57020f1c63286b91d2f5c52")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+78c2b12d51d6f5ea7f3db18b7667fc94e0ab5ecc")]
 [assembly: System.Reflection.AssemblyProductAttribute("NewsManagementSystem.DAL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NewsManagementSystem.DAL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
