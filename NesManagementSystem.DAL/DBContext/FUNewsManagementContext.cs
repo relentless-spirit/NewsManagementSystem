@@ -23,7 +23,7 @@ public partial class FUNewsManagementContext : DbContext
 
     public virtual DbSet<NewsArticle> NewsArticles { get; set; }
 
-    public virtual DbSet<SystemAccount> SystemAccounts { get; set; }
+    public virtual DbSet<BusinessObject.Entities.SystemAccount> SystemAccounts { get; set; }
 
     public virtual DbSet<Tag> Tags { get; set; }
 
@@ -81,7 +81,7 @@ public partial class FUNewsManagementContext : DbContext
                     });
         });
 
-        modelBuilder.Entity<SystemAccount>(entity =>
+        modelBuilder.Entity<BusinessObject.Entities.SystemAccount>(entity =>
         {
             entity.Property(e => e.AccountID).ValueGeneratedNever();
         });

@@ -1,11 +1,17 @@
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using NewsManagementSystem.BLL.Services.Article;
 using NewsManagementSystem.BLL.Services.Category;
+using NewsManagementSystem.BLL.Services.SystemAccount;
 using NewsManagementSystem.BLL.Services.Tag;
 using NewsManagementSystem.DAL.DBContext;
 using NewsManagementSystem.DAL.Repositories.Article;
 using NewsManagementSystem.DAL.Repositories.Category;
 using NewsManagementSystem.DAL.Repositories.Tag;
+using NewsManagementSystem.DAL.SystemAccount;
+using NewsManagementSystem.Mapper;
+using NewsManagementSystem.Models;
+using NewsManagementSystem.Validation;
 
 namespace NewsManagementSystem
 {
@@ -26,11 +32,20 @@ namespace NewsManagementSystem
             builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
             builder.Services.AddScoped<IArticleRepo, ArticleRepo>();
             builder.Services.AddScoped<ITagRepo, TagRepo>();
+            builder.Services.AddScoped<ISystemAccountRepo, SystemAccountRepo>();
             
             //Register services
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IArticleService, ArticleService>();
             builder.Services.AddScoped<ITagService, TagService>();
+            builder.Services.AddScoped<ISystemAccountService, SystemAccountService>();
+            
+            //Register validators
+            builder.Services.AddScoped<IValidator<CreateAccountRequest>, CreateAccountReqValidator>();
+            builder.Services.AddScoped<IValidator<UpdateSystemAccountRequest>, UpdateSystemAccountRequestValidator>();
+
+            //Register AutoMapper
+            builder.Services.AddAutoMapper(typeof(AccountProfile));
 
             var app = builder.Build();
 
