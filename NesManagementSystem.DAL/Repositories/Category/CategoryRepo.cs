@@ -29,7 +29,7 @@ public class CategoryRepo : ICategoryRepo
         }
 
         return await _context.Categories
-            .FirstOrDefaultAsync(c => c.CategoryName.ToLower() == categoryName.ToLower());
+            .FirstOrDefaultAsync(c => c.CategoryName.ToLower() == categoryName.ToLower() && c.IsActive);
     }
 
     public async Task CreateCategoryAsync(BusinessObject.Entities.Category category)
