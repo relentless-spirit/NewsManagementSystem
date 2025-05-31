@@ -5,8 +5,8 @@
 *.suo
 
 ## Ignore build results
-bin/
-obj/
+**/bin/
+**/obj/
 
 ## Ignore Rider project model cache
 *.rider.project.model.nuget.info
@@ -26,3 +26,4 @@ obj/
 ## Others
 *.cache
 *.db
+
