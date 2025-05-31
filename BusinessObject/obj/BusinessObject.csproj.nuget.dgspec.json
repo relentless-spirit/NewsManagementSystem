@@ -1,23 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\HP\\RiderProjects\\NewsManagementSystem\\BusinessObject\\BusinessObject.csproj": {}
+    "C:\\Users\\Admin\\RiderProjects\\NewsManagementSystem\\BusinessObject\\BusinessObject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HP\\RiderProjects\\NewsManagementSystem\\BusinessObject\\BusinessObject.csproj": {
+    "C:\\Users\\Admin\\RiderProjects\\NewsManagementSystem\\BusinessObject\\BusinessObject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HP\\RiderProjects\\NewsManagementSystem\\BusinessObject\\BusinessObject.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\RiderProjects\\NewsManagementSystem\\BusinessObject\\BusinessObject.csproj",
         "projectName": "BusinessObject",
-        "projectPath": "C:\\Users\\HP\\RiderProjects\\NewsManagementSystem\\BusinessObject\\BusinessObject.csproj",
-        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HP\\RiderProjects\\NewsManagementSystem\\BusinessObject\\obj\\",
+        "projectPath": "C:\\Users\\Admin\\RiderProjects\\NewsManagementSystem\\BusinessObject\\BusinessObject.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Admin\\RiderProjects\\NewsManagementSystem\\BusinessObject\\obj\\",
         "projectStyle": "PackageReference",
+        "UsingMicrosoftNETSdk": false,
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -71,7 +72,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
