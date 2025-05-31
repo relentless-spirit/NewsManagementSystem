@@ -91,7 +91,7 @@
                             <h4 class="mb-0">Create New Account</h4>
                         </div>
                         <div class="card-body">
-                            <form class="w-100 h-100 d-flex flex-column justify-content-between" asp-controller="SystemAccount" asp-action="CreateSystemAccount" method="post">
+                            <form class="form-create-account w-100 h-100 d-flex flex-column justify-content-between" asp-controller="SystemAccount" asp-action="CreateSystemAccount" method="post">
                                 <div class="form-group mb-3">
                                     <label asp-for="CreateAccountRequest.AccountID" class="form-label">ID</label>
                                     <input asp-for="CreateAccountRequest.AccountID" class="form-control" placeholder="Enter category name" />
@@ -123,7 +123,7 @@
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <a asp-controller="SystemAccount" asp-action="Accounts" class="btn btn-secondary">Cancel</a>
-                                    <button type="submit" class="btn btn-primary">Create</button>
+                                    <button type="submit" class="button-create-account btn btn-primary">Create</button>
                                 </div>
                             </form>
                         </div>
@@ -194,7 +194,7 @@
                             <h4 class="mb-0">Update Account</h4>
                         </div>
                         <div class="card-body">
-                            <form asp-controller="SystemAccount" asp-action="Edit" method="post">
+                            <form class="form-update-account" asp-controller="SystemAccount" asp-action="Edit" method="post">
                                 <input type="hidden" id="AccountID" name="AccountID" value="@(Model.UpdateSystemAccountRequest?.AccountID ?? 0)" />
                                 <div class="form-group mb-3">
                                     <label for="AccountName" class="form-label">Name</label>

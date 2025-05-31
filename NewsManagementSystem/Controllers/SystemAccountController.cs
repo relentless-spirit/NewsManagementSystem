@@ -31,25 +31,31 @@ namespace NewsManagementSystem.Controllers
             return View(viewModel);
         }
 
-        [HttpGet]
-        public IActionResult CreateSystemAccount()
-        {
-            return View();
-        }
+        // [HttpGet]
+        // public IActionResult CreateSystemAccount()
+        // {
+        //     return View();
+        // }
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateSystemAccount(CreateAccountRequest accountRequest)
+        public async Task<IActionResult> CreateSystemAccount([FromBody]CreateAccountRequest accountRequest)
         {
             ValidationResult result = await _createAccountRequestValidator.ValidateAsync(accountRequest);
             if (!result.IsValid)
             {
-                result.AddToModelState(this.ModelState);
-                return View("CreateSystemAccount", accountRequest);
+                var errors = result.Errors
+                    .GroupBy(e => e.PropertyName)
+                    .ToDictionary(
+                        g => g.Key,
+                        g => g.Select(e => e.ErrorMessage).ToArray()
+                    );
+
+                return BadRequest(new { success = false, errors });
             }
             var systemAccount = _mapper.Map<SystemAccount>(accountRequest);
             await _systemAccountService.CreateSystemAccountAsync(systemAccount);
-            return RedirectToAction("Accounts");
+            return Ok(new {success = true});
         }
 
         // GET: Edit
@@ -68,49 +74,53 @@ namespace NewsManagementSystem.Controllers
         // POST: Edit (Update Account from modal)
         [HttpPost]
 
-        public async Task<IActionResult> Edit(UpdateSystemAccountRequest account)
+        public async Task<IActionResult> Edit([FromBody]UpdateSystemAccountRequest account)
         {
 
-            //ValidationResult result = await _updateSystemAccountRequestValidator.ValidateAsync(account);
-            //if (!result.IsValid)
-            //{
-            //    result.AddToModelState(this.ModelState);
-
-            //    // Lấy lại danh sách accounts để render lại view
-            //    var accounts = await _systemAccountService.GetSystemAccountsAsync();
-            //    var viewModel = new AccountManagementViewModel
-            //    {
-            //        Accounts = accounts,
-            //        UpdateSystemAccountRequest = account
-            //    };
-            //    // Đặt cờ để tự động mở lại modal khi có lỗi
-            //    ViewBag.ShowUpdateModal = true;
-            //    return View("Accounts", viewModel);
-            //}
-
-
-            //var systemAccount = _mapper.Map<SystemAccount>(account);
-            //await _systemAccountService.UpdateSystemAccountAsync(systemAccount);
-
-            //return RedirectToAction("Accounts");
-            if (!ModelState.IsValid)
+            ValidationResult result = await _updateSystemAccountRequestValidator.ValidateAsync(account);
+            if (!result.IsValid)
             {
                 // Lấy lại danh sách accounts để render lại view
-                var accounts = await _systemAccountService.GetSystemAccountsAsync();
-                var viewModel = new AccountManagementViewModel
-                {
-                    Accounts = accounts,
-                    UpdateSystemAccountRequest = account
-                };
-                ViewBag.ShowUpdateModal = true;
-                return View("Accounts", viewModel);
+                // var accounts = await _systemAccountService.GetSystemAccountsAsync();
+                // var viewModel = new AccountManagementViewModel
+                // {
+                //     Accounts = accounts,
+                //     UpdateSystemAccountRequest = account
+                // };
+                // Đặt cờ để tự động mở lại modal khi có lỗi
+                var errors = result.Errors
+                    .GroupBy(e => e.PropertyName)
+                    .ToDictionary(
+                        g => g.Key,
+                        g => g.Select(e => e.ErrorMessage).ToArray()
+                    );
+
+                return BadRequest(new { success = false, errors });
             }
 
-            // Map sang entity và update
+
             var systemAccount = _mapper.Map<SystemAccount>(account);
             await _systemAccountService.UpdateSystemAccountAsync(systemAccount);
 
-            return RedirectToAction("Accounts");
+            return Ok(new { success = true });
+            // if (!ModelState.IsValid)
+            // {
+            //     // Lấy lại danh sách accounts để render lại view
+            //     var accounts = await _systemAccountService.GetSystemAccountsAsync();
+            //     var viewModel = new AccountManagementViewModel
+            //     {
+            //         Accounts = accounts,
+            //         UpdateSystemAccountRequest = account
+            //     };
+            //     ViewBag.ShowUpdateModal = true;
+            //     return View("Accounts", viewModel);
+            // }
+            //
+            // // Map sang entity và update
+            // var systemAccount = _mapper.Map<SystemAccount>(account);
+            // await _systemAccountService.UpdateSystemAccountAsync(systemAccount);
+            //
+            // return RedirectToAction("Accounts");
         }
         [HttpPost]
         public async Task<IActionResult> Delete(short id)

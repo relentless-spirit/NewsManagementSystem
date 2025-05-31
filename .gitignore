@@ -1,2 +1,28 @@
-.idea/
+## Ignore Visual Studio and Rider settings
 .vs/
+.idea/
+*.user
+*.suo
+
+## Ignore build results
+bin/
+obj/
+
+## Ignore Rider project model cache
+*.rider.project.model.nuget.info
+*.csproj.user
+*.DotSettings.user
+
+## Ignore temporary files
+*.log
+*.tmp
+*.temp
+*.bak
+
+## ignore environment files
+.env
+.env.*
+
+## Others
+*.cache
+*.db
