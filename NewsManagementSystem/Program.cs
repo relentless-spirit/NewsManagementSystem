@@ -1,7 +1,11 @@
 using Microsoft.EntityFrameworkCore;
+using NewsManagementSystem.BLL.Services.Article;
 using NewsManagementSystem.BLL.Services.Category;
+using NewsManagementSystem.BLL.Services.Tag;
 using NewsManagementSystem.DAL.DBContext;
+using NewsManagementSystem.DAL.Repositories.Article;
 using NewsManagementSystem.DAL.Repositories.Category;
+using NewsManagementSystem.DAL.Repositories.Tag;
 
 namespace NewsManagementSystem
 {
@@ -20,10 +24,14 @@ namespace NewsManagementSystem
 
             //Register repositories
             builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
+            builder.Services.AddScoped<IArticleRepo, ArticleRepo>();
+            builder.Services.AddScoped<ITagRepo, TagRepo>();
             
             //Register services
             builder.Services.AddScoped<ICategoryService, CategoryService>();
-            
+            builder.Services.AddScoped<IArticleService, ArticleService>();
+            builder.Services.AddScoped<ITagService, TagService>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

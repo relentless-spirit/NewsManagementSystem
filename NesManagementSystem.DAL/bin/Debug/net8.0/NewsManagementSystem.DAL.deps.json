@@ -1121,7 +1121,10 @@
           "Microsoft.EntityFrameworkCore": "9.0.5"
         },
         "runtime": {
-          "BusinessObject.dll": {}
+          "BusinessObject.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }
