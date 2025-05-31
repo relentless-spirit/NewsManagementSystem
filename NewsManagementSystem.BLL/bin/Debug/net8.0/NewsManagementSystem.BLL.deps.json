@@ -728,7 +728,10 @@
           "Microsoft.EntityFrameworkCore": "9.0.5"
         },
         "runtime": {
-          "BusinessObject.dll": {}
+          "BusinessObject.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "NewsManagementSystem.DAL/1.0.0": {
@@ -740,7 +743,10 @@
           "Microsoft.Extensions.Configuration.Json": "9.0.5"
         },
         "runtime": {
-          "NewsManagementSystem.DAL.dll": {}
+          "NewsManagementSystem.DAL.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

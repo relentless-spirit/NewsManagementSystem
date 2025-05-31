@@ -1,7 +1,9 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using NewsManagementSystem.BLL.Services.Category;
+using NewsManagementSystem.BLL.Services.Account;
 using NewsManagementSystem.DAL.DBContext;
 using NewsManagementSystem.DAL.Repositories.Category;
+using NewsManagementSystem.DAL.Repositories.Account;
 
 namespace NewsManagementSystem
 {
@@ -13,37 +15,41 @@ namespace NewsManagementSystem
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            
-            //Register DB
+
+            // Register DbContext
             builder.Services.AddDbContext<FUNewsManagementContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionStringDB")));
 
-            //Register repositories
+            // Enable Session
+            builder.Services.AddSession(); // 🟢 Thêm dòng này để dùng session
+
+            // Register Category Repository and Service
             builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
-            
-            //Register services
             builder.Services.AddScoped<ICategoryService, CategoryService>();
-            
+
+            // 🔐 Register Account Repository and Service for Login
+            builder.Services.AddScoped<IAccountRepo, AccountRepo>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
-
-
-            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
+            app.UseSession();
+
             app.UseAuthorization();
 
+            
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Category}/{action=ListCategories}/{id?}");
