@@ -26,6 +26,14 @@ public class ArticleRepo : IArticleRepo
             .Include(a => a.Tags)
             .FirstOrDefaultAsync(a => a.NewsTitle == name);
     }
+    
+    public async Task<List<NewsArticle>> GetArticlesByCategoryIdAsync(short categoryId)
+    {
+        return await _context.NewsArticles
+            .Where(a => a.CategoryID == categoryId)
+            .ToListAsync();
+    }
+
 
     public async Task CreateArticleAsync(NewsArticle article)
     {
@@ -41,28 +49,35 @@ public class ArticleRepo : IArticleRepo
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateArticleAsync(NewsArticle article)
+    public async Task UpdateArticleAsync(NewsArticle article, List<int> tagIds)
     {
         var result = await _context.NewsArticles
             .Include(a => a.Tags)
-            .FirstOrDefaultAsync(a => a.NewsArticleID == article.NewsArticleID);
+            .FirstOrDefaultAsync(x => x.NewsArticleID == article.NewsArticleID);
 
         if (result == null) return;
 
-        _context.Entry(result).CurrentValues.SetValues(article);
+        result.NewsTitle = article.NewsTitle;
+        result.Headline = article.Headline;
+        result.NewsContent = article.NewsContent;
+        result.NewsSource = article.NewsSource;
+        result.ModifiedDate = article.ModifiedDate;
+        result.CategoryID = article.CategoryID;
         
-        result.Tags.Clear();
-        if (article.Tags != null && article.Tags.Any())
+        result.Tags?.Clear();
+        if (tagIds != null && tagIds.Count > 0)
         {
-            foreach (var tag in article.Tags)
+            var tags = await _context.Tags.Where(t => tagIds.Contains(t.TagID)).ToListAsync();
+            foreach (var tag in tags)
             {
-                _context.Entry(tag).State = EntityState.Unchanged;
                 result.Tags.Add(tag);
             }
         }
 
         await _context.SaveChangesAsync();
     }
+
+
 
     public async Task DeleteArticleAsync(NewsArticle article)
     {

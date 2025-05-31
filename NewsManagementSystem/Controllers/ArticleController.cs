@@ -20,46 +20,57 @@ public class ArticleController : Controller
         _tagService = tagService;
     }
  
-    public async Task<IActionResult> ListArticles()
+    public async Task<IActionResult> ListArticles(short categoryId)
     {
-        var articles = await _articleService.GetArticlesync();
+        var articles = await _articleService.GetArticlesByCategoryIdAsync(categoryId);
+        ViewData["CategoryId"] = categoryId;
         return View(articles);
     }
 
+
+    [HttpGet]
+    public async Task<IActionResult> GetArticlesByCategory(short categoryId)
+    {
+        var articles = await _articleService.GetArticlesByCategoryIdAsync(categoryId);
+        return Json(articles);
+    }
+
   
-    public async Task<IActionResult> Create()
+    [HttpGet]
+    public async Task<IActionResult> CreateNewArticle(short categoryId)
     {
         var vm = new ArticleViewModel
         {
+            CategoryID = categoryId,
             AllTags = await _tagService.GetAllTagsAsync()
         };
-        return View(vm);
+        return View("CreateNewArticle", vm);
     }
-    
+
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(ArticleViewModel vm)
+    public async Task<IActionResult> CreateNewArticle(ArticleViewModel vm)
     {
         if (!ModelState.IsValid)
         {
-            vm.AllTags = await _tagService.GetAllTagsAsync(); // reload tag list if failed
+            vm.AllTags = await _tagService.GetAllTagsAsync();
             return View(vm);
         }
 
         var article = new NewsArticle
         {
-            NewsArticleID = Guid.NewGuid().ToString(),
+            NewsArticleID = Guid.NewGuid().ToString().Substring(0, 20),
             NewsTitle = vm.NewsTitle,
             Headline = vm.Headline,
             NewsContent = vm.NewsContent,
             NewsSource = vm.NewsSource,
-            CreatedDate = DateTime.Now
+            CreatedDate = DateTime.Now,
+            CategoryID = vm.CategoryID
         };
 
         await _articleService.CreateArticleWithTagsAsync(article, vm.SelectedTagIds);
-        return RedirectToAction("ListArticles");
+        return RedirectToAction("ListArticles", new { categoryId = vm.CategoryID });
     }
-
     
     public async Task<IActionResult> Update(string id)
     {
@@ -73,6 +84,7 @@ public class ArticleController : Controller
             Headline = article.Headline,
             NewsContent = article.NewsContent,
             NewsSource = article.NewsSource,
+            CategoryID = article.CategoryID ?? 0,
             SelectedTagIds = article.Tags.Select(t => t.TagID).ToList(),
             AllTags = await _tagService.GetAllTagsAsync()
         };
@@ -92,7 +104,6 @@ public class ArticleController : Controller
             vm.AllTags = await _tagService.GetAllTagsAsync();
             return View(vm);
         }
-
         var article = new NewsArticle
         {
             NewsArticleID = vm.NewsArticleID!,
@@ -100,11 +111,12 @@ public class ArticleController : Controller
             Headline = vm.Headline,
             NewsContent = vm.NewsContent,
             NewsSource = vm.NewsSource,
-            ModifiedDate = DateTime.Now
+            ModifiedDate = DateTime.Now,
+            CategoryID = vm.CategoryID
         };
 
         await _articleService.UpdateArticleWithTagsAsync(article, vm.SelectedTagIds);
-        return RedirectToAction(nameof(ListArticles));
+        return RedirectToAction("ListArticles", new { categoryId = vm.CategoryID });
     }
 
     
@@ -119,8 +131,10 @@ public class ArticleController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(string id)
     {
+        var article = await _articleService.GetArticleByIdWithTagsAsync(id); 
+
         await _articleService.DeleteArticleByIdAsync(id);
-        return RedirectToAction(nameof(ListArticles));
+        return RedirectToAction("ListArticles", new { categoryId = article.CategoryID });
     }
     
     

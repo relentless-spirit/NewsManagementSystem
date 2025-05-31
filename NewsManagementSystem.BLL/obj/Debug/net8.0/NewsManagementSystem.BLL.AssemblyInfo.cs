@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NewsManagementSystem.BLL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9f13afc2c325d6ddf52ae7f40bad1758ef44e88f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+000214aea08c545fe1026fcd71dd1bc33091a277")]
 [assembly: System.Reflection.AssemblyProductAttribute("NewsManagementSystem.BLL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NewsManagementSystem.BLL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

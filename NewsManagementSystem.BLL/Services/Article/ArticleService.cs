@@ -24,6 +24,11 @@ public class ArticleService : IArticleService
         var list = await _articleRepo.GetArticlesync();
         return list.FirstOrDefault(x => x.NewsArticleID == id);
     }
+    
+    public async Task<List<NewsArticle>> GetArticlesByCategoryIdAsync(short categoryId)
+    {
+        return await _articleRepo.GetArticlesByCategoryIdAsync(categoryId);
+    }
 
     public Task CreateArticleAsync(NewsArticle article) => _articleRepo.CreateArticleAsync(article);
 
@@ -33,15 +38,12 @@ public class ArticleService : IArticleService
         article.Tags = tags;
         await _articleRepo.CreateArticleAsync(article);
     }
-
-    public Task UpdateArticleAsync(NewsArticle article) => _articleRepo.UpdateArticleAsync(article);
-
+    
     public async Task UpdateArticleWithTagsAsync(NewsArticle article, List<int> tagIds)
     {
-        var tags = await _tagRepo.GetTagsByIdsAsync(tagIds);
-        article.Tags = tags;
-        await _articleRepo.UpdateArticleAsync(article);
+        await _articleRepo.UpdateArticleAsync(article, tagIds);
     }
+
 
     public Task DeleteArticleAsync(NewsArticle article) => _articleRepo.DeleteArticleAsync(article);
 
