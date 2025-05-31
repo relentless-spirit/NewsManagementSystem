@@ -31,6 +31,7 @@ public class ArticleRepo : IArticleRepo
     {
         return await _context.NewsArticles
             .Where(a => a.CategoryID == categoryId)
+            .Include(a => a.Tags)
             .ToListAsync();
     }
 

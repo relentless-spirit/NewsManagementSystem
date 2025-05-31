@@ -21,6 +21,7 @@
             <tr>
                 <th>Title</th>
                 <th>Headline</th>
+                <th>Tags</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -30,6 +31,12 @@
                 <tr>
                     <td>@article.NewsTitle</td>
                     <td>@article.Headline</td>
+                    <td>
+                        @if (article.Tags != null && article.Tags.Any())
+                        {
+                            @string.Join(", ", article.Tags.Select(t => t.TagName))
+                        }
+                    </td>
                     <td>
                         <a asp-controller="Article" asp-action="Update" asp-route-id="@article.NewsArticleID" class="btn btn-sm btn-warning">Edit</a>
                         <a asp-controller="Article" asp-action="Delete" asp-route-id="@article.NewsArticleID" class="btn btn-sm btn-danger">Delete</a>

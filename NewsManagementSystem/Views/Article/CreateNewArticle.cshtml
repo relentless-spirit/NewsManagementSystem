@@ -34,6 +34,17 @@
             <input asp-for="NewsSource" class="form-control" />
             <span asp-validation-for="NewsSource" class="text-danger"></span>
         </div>
+        
+        <div class="form-group">
+            <label for="tags">Tags</label>
+            @foreach (var tag in Model.AllTags)
+            {
+                <div>
+                    <input type="checkbox" name="SelectedTagIds" value="@tag.TagID" />
+                    <label>@tag.TagName</label>
+                </div>
+            }
+        </div>
 
         <button type="submit" class="btn btn-success">Create</button>
         <a href="/Article/ListArticles?categoryId=@Model.CategoryID" class="btn btn-secondary">Back</a>
