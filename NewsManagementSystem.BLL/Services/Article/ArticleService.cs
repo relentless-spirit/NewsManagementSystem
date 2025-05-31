@@ -1,4 +1,4 @@
-﻿using NewsManagementSystem.DAL.Entities;
+﻿using BusinessObject.Entities;
 using NewsManagementSystem.DAL.Repositories.Article;
 using NewsManagementSystem.DAL.Repositories.Tag;
 

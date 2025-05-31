@@ -13,12 +13,12 @@ public class TagRepo : ITagRepo
         _context = context;
     }
 
-    public async Task<List<Entities.Tag>> GetAllTagsAsync()
+    public async Task<List<BusinessObject.Entities.Tag>> GetAllTagsAsync()
     {
         return await _context.Tags.ToListAsync();
     }
 
-    public async Task<List<Entities.Tag>> GetTagsByIdsAsync(List<int> tagIds)
+    public async Task<List<BusinessObject.Entities.Tag>> GetTagsByIdsAsync(List<int> tagIds)
     {
         return await _context.Tags.Where(t => tagIds.Contains(t.TagID)).ToListAsync();
     }

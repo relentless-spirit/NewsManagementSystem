@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace NewsManagementSystem.DAL.Entities;
+namespace BusinessObject.Entities;
 
 [Table("SystemAccount")]
 public partial class SystemAccount

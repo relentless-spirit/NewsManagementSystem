@@ -2,6 +2,6 @@
 
 public interface ITagService
 {
-    Task<List<DAL.Entities.Tag>> GetAllTagsAsync();
-    Task<List<DAL.Entities.Tag>> GetTagsByIdsAsync(List<int> tagIds);
+    Task<List<BusinessObject.Entities.Tag>> GetAllTagsAsync();
+    Task<List<BusinessObject.Entities.Tag>> GetTagsByIdsAsync(List<int> tagIds);
 }

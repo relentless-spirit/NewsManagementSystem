@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace NewsManagementSystem.DAL.Entities;
+namespace BusinessObject.Entities;
 
 [Table("Category")]
 public partial class Category
@@ -24,7 +24,7 @@ public partial class Category
 
     public short? ParentCategoryID { get; set; }
 
-    public bool? IsActive { get; set; }
+    public bool IsActive { get; set; }
 
     [InverseProperty("ParentCategory")]
     public virtual ICollection<Category> InverseParentCategory { get; set; } = new List<Category>();

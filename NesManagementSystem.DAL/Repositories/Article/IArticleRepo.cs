@@ -1,4 +1,4 @@
-﻿using NewsManagementSystem.DAL.Entities;
+﻿using BusinessObject.Entities;
 
 namespace NewsManagementSystem.DAL.Repositories.Article;
 

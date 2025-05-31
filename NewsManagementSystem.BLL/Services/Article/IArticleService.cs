@@ -1,5 +1,6 @@
-﻿namespace NewsManagementSystem.BLL.Services.Article;
-using NewsManagementSystem.DAL.Entities;
+﻿using BusinessObject.Entities;
+
+namespace NewsManagementSystem.BLL.Services.Article;
 
 public interface IArticleService
 {

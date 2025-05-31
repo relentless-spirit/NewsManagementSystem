@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BusinessObject.Entities;
+using Microsoft.EntityFrameworkCore;
 using NewsManagementSystem.DAL.DBContext;
-using NewsManagementSystem.DAL.Entities;
 
 namespace NewsManagementSystem.DAL.Repositories.Article;
 

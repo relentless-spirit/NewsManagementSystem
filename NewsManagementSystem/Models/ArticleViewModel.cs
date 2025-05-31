@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using BusinessObject.Entities;
 
 namespace NewsManagementSystem.Models;
 
@@ -23,5 +24,5 @@ public class ArticleViewModel
     [Display(Name = "Tags")]
     public List<int> SelectedTagIds { get; set; } = new();
 
-    public List<NewsManagementSystem.DAL.Entities.Tag> AllTags { get; set; } = new();
+    public List<Tag> AllTags { get; set; } = new();
 }

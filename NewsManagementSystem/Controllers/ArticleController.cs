@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BusinessObject.Entities;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NewsManagementSystem.BLL.Services.Article;
 using NewsManagementSystem.BLL.Services.Tag;
-using NewsManagementSystem.DAL.Entities;
 using NewsManagementSystem.Models;
 
 namespace NewsManagementSystem.Controllers;

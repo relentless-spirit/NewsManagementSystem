@@ -1,42 +1,42 @@
-﻿@model List<NewsManagementSystem.DAL.Entities.NewsArticle>
-
-@{
-    ViewData["Title"] = "Article List";
-}
-
-<h2>Article List</h2>
-
-<table class="table">
-    <thead>
-    <tr>
-        <th>Title</th>
-        <th>Headline</th>
-        <th>Created Date</th>
-        <th>Tags</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var article in Model)
-    {
-        <tr>
-            <td>@article.NewsTitle</td>
-            <td>@article.Headline</td>
-            <td>@article.CreatedDate?.ToString("dd/MM/yyyy")</td>
-            <td>
-                @foreach (var tag in article.Tags)
-                {
-                    <span class="badge bg-primary">@tag.TagName</span>
-                }
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@article.NewsArticleID">View</a> |
-                <a asp-action="Edit" asp-route-id="@article.NewsArticleID">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@article.NewsArticleID">Delete</a>
-            </td>
-        </tr>
-    }
-    </tbody>
-</table>
-
-<a asp-action="Create" class="btn btn-success">+ Create New</a>
+﻿@* @model List<NewsManagementSystem.DAL.Entities.NewsArticle> *@
+@* *@
+@* @{ *@
+@*     ViewData["Title"] = "Article List"; *@
+@* } *@
+@* *@
+@* <h2>Article List</h2> *@
+@* *@
+@* <table class="table"> *@
+@*     <thead> *@
+@*     <tr> *@
+@*         <th>Title</th> *@
+@*         <th>Headline</th> *@
+@*         <th>Created Date</th> *@
+@*         <th>Tags</th> *@
+@*         <th>Actions</th> *@
+@*     </tr> *@
+@*     </thead> *@
+@*     <tbody> *@
+@*     @foreach (var article in Model) *@
+@*     { *@
+@*         <tr> *@
+@*             <td>@article.NewsTitle</td> *@
+@*             <td>@article.Headline</td> *@
+@*             <td>@article.CreatedDate?.ToString("dd/MM/yyyy")</td> *@
+@*             <td> *@
+@*                 @foreach (var tag in article.Tags) *@
+@*                 { *@
+@*                     <span class="badge bg-primary">@tag.TagName</span> *@
+@*                 } *@
+@*             </td> *@
+@*             <td> *@
+@*                 <a asp-action="Details" asp-route-id="@article.NewsArticleID">View</a> | *@
+@*                 <a asp-action="Edit" asp-route-id="@article.NewsArticleID">Edit</a> | *@
+@*                 <a asp-action="Delete" asp-route-id="@article.NewsArticleID">Delete</a> *@
+@*             </td> *@
+@*         </tr> *@
+@*     } *@
+@*     </tbody> *@
+@* </table> *@
+@* *@
+@* <a asp-action="Create" class="btn btn-success">+ Create New</a> *@
