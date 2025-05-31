@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "x4q3whgQd9X23ohHONmNpqI9T3F3TDH//39VW2wJDluaycf8W8ALbT5ofEHalhVuazk5ydK4WGvdPxYBGdr+Zw==",
+  "dgSpecHash": "iic+R7KcEBXmMt1JLpvhCXqt8aBtIpKfZncd6g67CJ2yq5CWTxmgmy+gRZKUDVK5ZXISKa1twZQRF4lTuq/WHA==",
   "success": true,
   "projectFilePath": "C:\\Users\\HP\\RiderProjects\\NewsManagementSystem\\NewsManagementSystem\\NewsManagementSystem.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\HP\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\fluentvalidation\\12.0.0\\fluentvalidation.12.0.0.nupkg.sha512",
