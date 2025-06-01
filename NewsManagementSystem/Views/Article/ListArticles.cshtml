@@ -74,7 +74,6 @@
     <div class="modal fade" id="articleModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content" id="articleModalContent">
-                <!-- Nội dung sẽ được load động bằng AJAX -->
             </div>
         </div>
     </div>
@@ -83,7 +82,6 @@
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content" id="deleteModalContent">
-                <!-- Nội dung xác nhận xóa sẽ được load bằng AJAX -->
             </div>
         </div>
     </div>
@@ -92,6 +90,25 @@
             function openCreateModal(categoryId) {
                 $.get('/Article/CreateNewArticle?categoryId=' + categoryId, function (data) {
                     $('#articleModalContent').html(data);
+
+                    // GẮN LẠI SUBMIT FORM
+                    $('#articleForm').off('submit').on('submit', function (e) {
+                        e.preventDefault();
+                        var form = $(this);
+                        $.ajax({
+                            type: form.attr('method'),
+                            url: form.attr('action'),
+                            data: form.serialize(),
+                            success: function () {
+                                $('#articleModal').modal('hide');
+                                location.reload();
+                            },
+                            error: function (xhr) {
+                                $('#articleModalContent').html(xhr.responseText);
+                            }
+                        });
+                    });
+
                     $('#articleModal').modal('show');
                 });
             }
@@ -99,6 +116,25 @@
             function openEditModal(articleId) {
                 $.get('/Article/Update?id=' + articleId, function (data) {
                     $('#articleModalContent').html(data);
+
+                    // GẮN LẠI SUBMIT FORM
+                    $('#articleForm').off('submit').on('submit', function (e) {
+                        e.preventDefault();
+                        var form = $(this);
+                        $.ajax({
+                            type: form.attr('method'),
+                            url: form.attr('action'),
+                            data: form.serialize(),
+                            success: function () {
+                                $('#articleModal').modal('hide');
+                                location.reload();
+                            },
+                            error: function (xhr) {
+                                $('#articleModalContent').html(xhr.responseText);
+                            }
+                        });
+                    });
+
                     $('#articleModal').modal('show');
                 });
             }
@@ -106,10 +142,30 @@
             function openDeleteModal(articleId) {
                 $.get('/Article/Delete?id=' + articleId, function (data) {
                     $('#deleteModalContent').html(data);
+
+                    // GẮN LẠI SUBMIT FORM
+                    $('#deleteForm').off('submit').on('submit', function (e) {
+                        e.preventDefault();
+                        var form = $(this);
+                        $.ajax({
+                            type: form.attr('method'),
+                            url: form.attr('action'),
+                            data: form.serialize(),
+                            success: function () {
+                                $('#deleteModal').modal('hide');
+                                location.reload();
+                            },
+                            error: function (xhr) {
+                                $('#deleteModalContent').html(xhr.responseText);
+                            }
+                        });
+                    });
+
                     $('#deleteModal').modal('show');
                 });
             }
         </script>
     }
+
 
 </div>

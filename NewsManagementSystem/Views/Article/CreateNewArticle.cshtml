@@ -1,7 +1,7 @@
 ﻿@model NewsManagementSystem.Models.ArticleViewModel
-@{
-    Layout = null;
-}
+@* @{ *@
+@*     Layout = "_Layout"; *@
+@* } *@
 <div class="modal-header">
     <h5 class="modal-title">Create New Article</h5>
     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -53,22 +53,5 @@
     </form>
 </div>
     
-    <script>
-        $('#articleForm').submit(function (e) {
-            e.preventDefault();
-            var form = $(this);
-            $.ajax({
-                type: form.attr('method'),
-                url: form.attr('action'),
-                data: form.serialize(),
-                success: function () {
-                    $('#articleModal').modal('hide');
-                    location.reload();
-                },
-                error: function (xhr) {
-                    $('#articleModalContent').html(xhr.responseText);
-                }
-            });
-        });
-    </script>
+
 
