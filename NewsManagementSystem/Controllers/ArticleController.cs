@@ -35,7 +35,16 @@ public class ArticleController : Controller
         return Json(articles);
     }
 
-  
+
+    public async Task<IActionResult> GetActiveArticle()
+    {
+        var articles = await _articleService.GetActiveArticlesAsync();
+        return View("GetActiveArticle", articles);
+    }
+
+
+
+
     [HttpGet]
     public async Task<IActionResult> CreateNewArticle(short categoryId)
     {
