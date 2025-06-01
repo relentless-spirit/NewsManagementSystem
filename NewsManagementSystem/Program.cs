@@ -43,16 +43,17 @@ namespace NewsManagementSystem
             //Register validators
             builder.Services.AddScoped<IValidator<CreateAccountRequest>, CreateAccountReqValidator>();
             builder.Services.AddScoped<IValidator<UpdateSystemAccountRequest>, UpdateSystemAccountRequestValidator>();
+            builder.Services.AddHttpContextAccessor();
 
             //Register AutoMapper
             builder.Services.AddAutoMapper(typeof(AccountProfile));
 
-            // ĐẶT AddSession TRƯỚC khi Build()
+           
             builder.Services.AddSession();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
@@ -71,7 +72,7 @@ namespace NewsManagementSystem
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Article}/{action=GetActiveArticle}/{id?}");
+                pattern: "{controller=Article}/{action=GetArticlesync}/{id?}");
 
             app.Run();
         }

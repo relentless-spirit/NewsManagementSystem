@@ -21,7 +21,7 @@ public class ArticleController : Controller
     }
 
     //anyone
-    public async Task<IActionResult> GetActiveArticle()
+    public async Task<IActionResult> GetArticlesync()
     {
         var articles = await _articleService.GetArticlesync();
         return View("GetActiveArticle", articles);
