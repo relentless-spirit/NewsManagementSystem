@@ -62,18 +62,24 @@ namespace NewsManagementSystem.Controllers
             return RedirectToAction("Login");
         }
 
-        // ✅ DANH SÁCH ACCOUNT
         public async Task<IActionResult> Accounts()
         {
+            var role = HttpContext.Session.GetInt32("Role");
+            if (role != 0) // ✅ Chỉ Admin
+                return RedirectToAction("AccessDenied", "Home");
+
             var accounts = await _systemAccountService.GetSystemAccountsAsync();
             var viewModel = new AccountManagementViewModel() { Accounts = accounts };
             return View(viewModel);
         }
 
-        // ✅ TẠO ACCOUNT (AJAX)
         [HttpPost]
         public async Task<IActionResult> CreateSystemAccount([FromBody] CreateAccountRequest accountRequest)
         {
+            var role = HttpContext.Session.GetInt32("Role");
+            if (role != 0)
+                return Unauthorized();
+
             ValidationResult result = await _createAccountRequestValidator.ValidateAsync(accountRequest);
             if (!result.IsValid)
             {
@@ -92,10 +98,13 @@ namespace NewsManagementSystem.Controllers
             return Ok(new { success = true });
         }
 
-        // ✅ UPDATE ACCOUNT (AJAX)
         [HttpPost]
         public async Task<IActionResult> Edit([FromBody] UpdateSystemAccountRequest account)
         {
+            var role = HttpContext.Session.GetInt32("Role");
+            if (role != 0)
+                return Unauthorized();
+
             ValidationResult result = await _updateSystemAccountRequestValidator.ValidateAsync(account);
             if (!result.IsValid)
             {
@@ -114,10 +123,13 @@ namespace NewsManagementSystem.Controllers
             return Ok(new { success = true });
         }
 
-        // ✅ DELETE ACCOUNT
         [HttpPost]
         public async Task<IActionResult> Delete(short id)
         {
+            var role = HttpContext.Session.GetInt32("Role");
+            if (role != 0)
+                return Unauthorized();
+
             var account = await _systemAccountService.GetSystemAccountByIdAsync(id);
             if (account == null)
             {
@@ -127,5 +139,8 @@ namespace NewsManagementSystem.Controllers
             await _systemAccountService.DeleteSystemAccountAsync(account);
             return RedirectToAction("Accounts");
         }
+
+
+
     }
 }

@@ -2,51 +2,67 @@
 
 @{
     ViewData["Title"] = "Articles by Category";
+    var role = Context.Session.GetInt32("Role");
 }
 
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>Articles in Category ID: @ViewData["CategoryId"]</h2>
-        <a asp-controller="Article" asp-action="CreateNewArticle" asp-route-categoryId="@ViewData["CategoryId"]" class="btn btn-success">Create New Article</a>
+
+        @* ✅ Chỉ hiển thị nút "Create New Article" nếu là Staff *@
+        @if (role == 1)
+        {
+            <a asp-controller="Article" asp-action="CreateNewArticle" asp-route-categoryId="@ViewData["CategoryId"]" class="btn btn-success">
+                Create New Article
+            </a>
+        }
+
         <a asp-controller="Category" asp-action="ListCategories" class="btn btn-secondary mb-3">
             ← Back to Categories
         </a>
-
     </div>
 
     @if (Model != null && Model.Any())
     {
         <table class="table table-bordered">
             <thead class="table-dark">
-            <tr>
-                <th>Title</th>
-                <th>Headline</th>
-                <th>Tag</th>
-                <th>Actions</th>
-            </tr>
+                <tr>
+                    <th>Title</th>
+                    <th>Headline</th>
+                    <th>Tag</th>
+
+                    @* staff *@
+                    @if (role == 1)
+                    {
+                        <th>Actions</th>
+                    }
+                </tr>
             </thead>
             <tbody>
-            @foreach (var article in Model)
-            {
-                <tr>
-                    <td>@article.NewsTitle</td>
-                    <td>@article.Headline</td>
-                    <td>
-                        @if (article.Tags != null && article.Tags.Any())
-                        {
-                            @string.Join(", ", article.Tags.Select(t => t.TagName))
-                        }
-                    </td>
-                    <td>
-                        <a asp-controller="Article" asp-action="Update" asp-route-id="@article.NewsArticleID" class="btn btn-sm btn-warning">Edit</a>
-                        <a asp-controller="Article" asp-action="Delete" asp-route-id="@article.NewsArticleID" class="btn btn-sm btn-danger">Delete</a>
+                @foreach (var article in Model)
+                {
+                    <tr>
+                        <td>@article.NewsTitle</td>
+                        <td>@article.Headline</td>
+                        <td>
+                            @if (article.Tags != null && article.Tags.Any())
+                            {
+                                @string.Join(", ", article.Tags.Select(t => t.TagName))
+                            }
+                        </td>
 
-                    </td>
-                </tr>
-            }
+                        @* staff *@
+                        @if (role == 1)
+                        {
+                            <td>
+                                <a asp-controller="Article" asp-action="Update" asp-route-id="@article.NewsArticleID" class="btn btn-sm btn-warning">Edit</a>
+                                <a asp-controller="Article" asp-action="Delete" asp-route-id="@article.NewsArticleID" class="btn btn-sm btn-danger">Delete</a>
+                            </td>
+                        }
+                    </tr>
+                }
             </tbody>
         </table>
-        
     }
     else
     {

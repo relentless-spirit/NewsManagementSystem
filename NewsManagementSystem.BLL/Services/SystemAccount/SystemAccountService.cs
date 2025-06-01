@@ -20,7 +20,7 @@ namespace NewsManagementSystem.BLL.Services.SystemAccount
 
         public async Task<BusinessObject.Entities.SystemAccount?> AuthenticateAsync(string email, string password)
         {
-            // 🔐 Lấy thông tin admin từ cấu hình
+            
             var adminEmail = _config["AdminAccount:Email"];
             var adminPassword = _config["AdminAccount:Password"];
 
@@ -35,7 +35,7 @@ namespace NewsManagementSystem.BLL.Services.SystemAccount
                 };
             }
 
-            // 🔄 Nếu không phải admin, kiểm tra từ DB
+            
             return await _systemAccountRepo.GetByEmailAndPasswordAsync(email, password);
         }
 

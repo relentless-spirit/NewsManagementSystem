@@ -19,15 +19,21 @@ public class ArticleController : Controller
         _articleService = articleService;
         _tagService = tagService;
     }
- 
+
+    //anyone
+    public async Task<IActionResult> GetActiveArticle()
+    {
+        var articles = await _articleService.GetActiveArticlesAsync();
+        return View("GetActiveArticle", articles);
+    }
+
+  
     public async Task<IActionResult> ListArticles(short categoryId)
     {
         var articles = await _articleService.GetArticlesByCategoryIdAsync(categoryId);
         ViewData["CategoryId"] = categoryId;
         return View(articles);
     }
-
-
     [HttpGet]
     public async Task<IActionResult> GetArticlesByCategory(short categoryId)
     {
@@ -35,19 +41,14 @@ public class ArticleController : Controller
         return Json(articles);
     }
 
-
-    public async Task<IActionResult> GetActiveArticle()
-    {
-        var articles = await _articleService.GetActiveArticlesAsync();
-        return View("GetActiveArticle", articles);
-    }
-
-
-
-
+    //staff
     [HttpGet]
     public async Task<IActionResult> CreateNewArticle(short categoryId)
     {
+        var role = HttpContext.Session.GetInt32("Role");
+        if (role != 1)
+            return RedirectToAction("AccessDenied", "Home");
+
         var vm = new ArticleViewModel
         {
             CategoryID = categoryId,
@@ -60,6 +61,10 @@ public class ArticleController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> CreateNewArticle(ArticleViewModel vm)
     {
+        var role = HttpContext.Session.GetInt32("Role");
+        if (role != 1)
+            return Unauthorized();
+
         if (!ModelState.IsValid)
         {
             vm.AllTags = await _tagService.GetAllTagsAsync();
@@ -80,9 +85,14 @@ public class ArticleController : Controller
         await _articleService.CreateArticleWithTagsAsync(article, vm.SelectedTagIds);
         return RedirectToAction("ListArticles", new { categoryId = vm.CategoryID });
     }
-    
+
+    //staff
     public async Task<IActionResult> Update(string id)
     {
+        var role = HttpContext.Session.GetInt32("Role");
+        if (role != 1)
+            return RedirectToAction("AccessDenied", "Home");
+
         var article = await _articleService.GetArticleByIdWithTagsAsync(id);
         if (article == null) return NotFound();
 
@@ -101,11 +111,14 @@ public class ArticleController : Controller
         return View(vm);
     }
 
-
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Update(string id, ArticleViewModel vm)
     {
+        var role = HttpContext.Session.GetInt32("Role");
+        if (role != 1)
+            return Unauthorized();
+
         if (id != vm.NewsArticleID) return NotFound();
 
         if (!ModelState.IsValid)
@@ -113,6 +126,7 @@ public class ArticleController : Controller
             vm.AllTags = await _tagService.GetAllTagsAsync();
             return View(vm);
         }
+
         var article = new NewsArticle
         {
             NewsArticleID = vm.NewsArticleID!,
@@ -128,9 +142,13 @@ public class ArticleController : Controller
         return RedirectToAction("ListArticles", new { categoryId = vm.CategoryID });
     }
 
-    
+    //staff
     public async Task<IActionResult> Delete(string id)
     {
+        var role = HttpContext.Session.GetInt32("Role");
+        if (role != 1)
+            return RedirectToAction("AccessDenied", "Home");
+
         var article = await _articleService.GetArticleByIdWithTagsAsync(id);
         if (article == null) return NotFound();
         return View(article);
@@ -140,11 +158,12 @@ public class ArticleController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(string id)
     {
-        var article = await _articleService.GetArticleByIdWithTagsAsync(id); 
+        var role = HttpContext.Session.GetInt32("Role");
+        if (role != 1)
+            return Unauthorized();
 
+        var article = await _articleService.GetArticleByIdWithTagsAsync(id);
         await _articleService.DeleteArticleByIdAsync(id);
         return RedirectToAction("ListArticles", new { categoryId = article.CategoryID });
     }
-    
-    
 }

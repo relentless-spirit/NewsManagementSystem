@@ -71,7 +71,7 @@ namespace NewsManagementSystem
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Category}/{action=ListCategories}/{id?}");
+                pattern: "{controller=Article}/{action=GetActiveArticle}/{id?}");
 
             app.Run();
         }
