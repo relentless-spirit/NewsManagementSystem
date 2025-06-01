@@ -1,53 +1,75 @@
-﻿@model ArticleViewModel
-
+﻿@model NewsManagementSystem.Models.ArticleViewModel
 @{
-    ViewData["Title"] = "Edit Article";
+    Layout = null;
 }
-
-<h2>Edit Article</h2>
-
-<form asp-action="Update" asp-controller="Article" asp-route-id="@Model.NewsArticleID" method="post">
-    <input type="hidden" asp-for="NewsArticleID"/>
-    <input type="hidden" asp-for="CategoryID" />
-
-
-
-    <div class="form-group">
-        <label asp-for="NewsTitle"></label>
-        <input asp-for="NewsTitle" class="form-control" />
-        <span asp-validation-for="NewsTitle" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Headline"></label>
-        <input asp-for="Headline" class="form-control" />
-        <span asp-validation-for="Headline" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="NewsContent"></label>
-        <textarea asp-for="NewsContent" class="form-control"></textarea>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="NewsSource"></label>
-        <input asp-for="NewsSource" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label for="tags">Tags</label>
-        @foreach (var tag in Model.AllTags)
-        {
+<div class="modal-header">
+    <h5 class="modal-title">Edit Article</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+<div class="modal-body">
+    <form id="articleForm" asp-action="Update" asp-route-id="@Model.NewsArticleID" method="post">
+        <input type="hidden" asp-for="NewsArticleID" />
+        <input type="hidden" asp-for="CategoryID" />
+        <div class="mb-3">
+            <label asp-for="NewsTitle" class="form-label"></label>
+            <input asp-for="NewsTitle" class="form-control" />
+            <span asp-validation-for="NewsTitle" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Headline" class="form-label"></label>
+            <input asp-for="Headline" class="form-control" />
+            <span asp-validation-for="Headline" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="NewsContent" class="form-label"></label>
+            <textarea asp-for="NewsContent" class="form-control"></textarea>
+            <span asp-validation-for="NewsContent" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="NewsSource" class="form-label"></label>
+            <input asp-for="NewsSource" class="form-control" />
+            <span asp-validation-for="NewsSource" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Tags</label>
             <div>
-                <input type="checkbox" name="SelectedTagIds" value="@tag.TagID" />
-                <label>@tag.TagName</label>
+                @foreach (var tag in Model.AllTags)
+                {
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input"
+                               type="checkbox"
+                               name="SelectedTagIds"
+                               value="@tag.TagID"
+                               @(Model.SelectedTagIds != null && Model.SelectedTagIds.Contains(tag.TagID) ? "checked" : "") />
+                        <label class="form-check-label">@tag.TagName</label>
+                    </div>
+                }
             </div>
-        }
-    </div>
+        </div>
 
-    <button type="submit" class="btn btn-success">Save</button>
-</form>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+    </form>
+</div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    <script>
+        $('#articleForm').submit(function (e) {
+            e.preventDefault();
+            var form = $(this);
+            $.ajax({
+                type: form.attr('method'),
+                url: form.attr('action'),
+                data: form.serialize(),
+                success: function () {
+                    $('#articleModal').modal('hide');
+                    location.reload();
+                },
+                error: function (xhr) {
+                    $('#articleModalContent').html(xhr.responseText);
+                }
+            });
+        });
+    </script>
+

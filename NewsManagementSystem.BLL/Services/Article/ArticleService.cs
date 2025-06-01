@@ -70,4 +70,9 @@ public class ArticleService : IArticleService
     {
         return await _articleRepo.GetArticleByDateRange(startDate, endDate);
     }
+    
+    public async Task<List<NewsArticle>> GetArticlesByAccountIdAsync(short userId)
+    {
+        return  await _articleRepo.GetArticlesByAccountIdAsync(userId);
+    }
 }

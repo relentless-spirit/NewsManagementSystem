@@ -12,9 +12,8 @@
         @* ✅ Chỉ hiển thị nút "Create New Article" nếu là Staff *@
         @if (role == 1)
         {
-            <a asp-controller="Article" asp-action="CreateNewArticle" asp-route-categoryId="@ViewData["CategoryId"]" class="btn btn-success">
-                Create New Article
-            </a>
+            <button class="btn btn-success" onclick="openCreateModal(@ViewData["CategoryId"])">Create New Article</button>
+
         }
 
         <a asp-controller="Category" asp-action="ListCategories" class="btn btn-secondary mb-3">
@@ -58,8 +57,8 @@
                         @if (role == 1)
                         {
                             <td>
-                                <a asp-controller="Article" asp-action="Update" asp-route-id="@article.NewsArticleID" class="btn btn-sm btn-warning">Edit</a>
-                                <a asp-controller="Article" asp-action="Delete" asp-route-id="@article.NewsArticleID" class="btn btn-sm btn-danger">Delete</a>
+                                <button class="btn btn-primary" onclick="openEditModal('@article.NewsArticleID')">Edit</button>
+                                <button class="btn btn-danger" onclick="openDeleteModal('@article.NewsArticleID')">Delete</button>
                             </td>
                         }
                     </tr>
@@ -71,4 +70,46 @@
     {
         <div class="alert alert-info">No articles found in this category.</div>
     }
+    <!-- Modal tạo & cập nhật -->
+    <div class="modal fade" id="articleModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" id="articleModalContent">
+                <!-- Nội dung sẽ được load động bằng AJAX -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal xác nhận xóa -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" id="deleteModalContent">
+                <!-- Nội dung xác nhận xóa sẽ được load bằng AJAX -->
+            </div>
+        </div>
+    </div>
+    @section Scripts {
+        <script>
+            function openCreateModal(categoryId) {
+                $.get('/Article/CreateNewArticle?categoryId=' + categoryId, function (data) {
+                    $('#articleModalContent').html(data);
+                    $('#articleModal').modal('show');
+                });
+            }
+
+            function openEditModal(articleId) {
+                $.get('/Article/Update?id=' + articleId, function (data) {
+                    $('#articleModalContent').html(data);
+                    $('#articleModal').modal('show');
+                });
+            }
+
+            function openDeleteModal(articleId) {
+                $.get('/Article/Delete?id=' + articleId, function (data) {
+                    $('#deleteModalContent').html(data);
+                    $('#deleteModal').modal('show');
+                });
+            }
+        </script>
+    }
+
 </div>

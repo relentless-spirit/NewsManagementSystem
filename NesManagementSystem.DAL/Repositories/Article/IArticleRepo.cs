@@ -14,5 +14,6 @@ public interface IArticleRepo
     Task DeleteArticleAsync(NewsArticle category);
 
     Task<List<NewsArticle>> GetArticleByDateRange(DateTime? startDate, DateTime? endDate);
+    Task<List<NewsArticle>> GetArticlesByAccountIdAsync(short userId);
 
 }

@@ -121,4 +121,12 @@ public class ArticleRepo : IArticleRepo
        
         return result;
     }
+    
+    public async Task<List<NewsArticle>> GetArticlesByAccountIdAsync(short userId)
+    {
+        return await _context.NewsArticles
+            .Where(x => x.CreatedByID == userId)
+            .Include(x => x.CreatedBy)
+            .ToListAsync();
+    }
 }

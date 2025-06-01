@@ -11,6 +11,7 @@ public class ArticleViewModel
     public string NewsSource { get; set; }
     public string? NewsArticleID { get; set; }
     public short CategoryID { get; set; }
+   
 
     public short? CreatedByID { get; set; }
     public short? UpdatedByID { get; set; }

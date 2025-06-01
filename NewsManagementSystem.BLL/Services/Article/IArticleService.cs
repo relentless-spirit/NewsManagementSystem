@@ -16,4 +16,6 @@ public interface IArticleService
     Task DeleteArticleAsync(NewsArticle article);
     Task DeleteArticleByIdAsync(string id);
     Task<List<NewsArticle>> GetArticleByDateRange(DateTime? startDate, DateTime? endDate);
+    Task<List<NewsArticle>> GetArticlesByAccountIdAsync(short userId);
+
 }
