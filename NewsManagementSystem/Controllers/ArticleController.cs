@@ -21,9 +21,14 @@ public class ArticleController : Controller
     }
 
     //anyone
-    public async Task<IActionResult> GetArticlesync()
+    public async Task<IActionResult> GetArticlesync(string? search)
     {
-        var articles = await _articleService.GetArticlesync();
+        List<NewsArticle> articles;
+        if (search != null)
+            articles = await _articleService.GetArticleByNameAsync(search);
+        else
+            articles = await _articleService.GetArticlesync();
+        ViewBag.Search = search;
         return View("GetActiveArticle", articles);
     }
 

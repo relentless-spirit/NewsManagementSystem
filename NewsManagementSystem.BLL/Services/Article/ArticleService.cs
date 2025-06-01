@@ -22,7 +22,7 @@ public class ArticleService : IArticleService
     }
 
 
-    public Task<NewsArticle?> GetArticleByNameAsync(string name) => _articleRepo.GetArticleByNameAsync(name);
+    public async Task<List<NewsArticle>> GetArticleByNameAsync(string search) => await _articleRepo.GetArticlesByNameAsync(search);
 
     public async Task<NewsArticle?> GetArticleByIdWithTagsAsync(string id)
     {
