@@ -16,21 +16,3 @@
         </div>
     </form>
 </div>
-<script>
-    $('#deleteForm').submit(function (e) {
-        e.preventDefault();
-        var form = $(this);
-        $.ajax({
-            type: form.attr('method'),
-            url: form.attr('action'),
-            data: form.serialize(),
-            success: function () {
-                $('#deleteModal').modal('hide');
-                location.reload();
-            },
-            error: function (xhr) {
-                $('#deleteModalContent').html(xhr.responseText);
-            }
-        });
-    });
-</script>

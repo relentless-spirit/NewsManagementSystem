@@ -73,14 +73,16 @@ public class ArticleController : Controller
         var userId = HttpContext.Session.GetInt32("UserID");
         var article = new NewsArticle
         {
-            NewsArticleID = Guid.NewGuid().ToString().Substring(0, 20),
+            NewsArticleID = Guid.NewGuid().ToString("N").Substring(0, 20),
             NewsTitle = vm.NewsTitle,
             Headline = vm.Headline,
             NewsContent = vm.NewsContent,
             NewsSource = vm.NewsSource,
             CreatedDate = DateTime.Now,
             CategoryID = vm.CategoryID,
-            CreatedByID = userId.HasValue ? (short?)userId.Value : null
+            CreatedByID = userId.HasValue ? (short?)userId.Value : null,
+            NewsStatus = true
+
         };
 
         await _articleService.CreateArticleWithTagsAsync(article, vm.SelectedTagIds);
@@ -137,7 +139,6 @@ public class ArticleController : Controller
             NewsSource = vm.NewsSource,
             ModifiedDate = DateTime.Now,
             CategoryID = vm.CategoryID,
-            UpdatedByID = userId.HasValue ? (short?)userId.Value : null
         };
 
         await _articleService.UpdateArticleWithTagsAsync(article, vm.SelectedTagIds);

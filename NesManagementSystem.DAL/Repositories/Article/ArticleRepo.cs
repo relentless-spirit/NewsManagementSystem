@@ -87,6 +87,12 @@ public class ArticleRepo : IArticleRepo
         await _context.SaveChangesAsync();
     }
 
+public async Task<NewsArticle?> GetArticleByIdWithTagsAsync(string id)
+{
+    return await _context.NewsArticles
+        .Include(a => a.Tags)
+        .FirstOrDefaultAsync(a => a.NewsArticleID == id);
+}
 
 
     public async Task DeleteArticleAsync(NewsArticle article)
@@ -129,4 +135,5 @@ public class ArticleRepo : IArticleRepo
             .Include(x => x.CreatedBy)
             .ToListAsync();
     }
+    
 }
