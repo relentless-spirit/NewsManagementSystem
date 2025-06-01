@@ -102,6 +102,11 @@ public class ArticleRepo : IArticleRepo
         await _context.SaveChangesAsync();
     }
 
+    public async Task<List<NewsArticle>> GetArticlesByNameAsync(string search)
+    {
+        return await _context.NewsArticles.Where(a => a.NewsTitle.ToLower().Contains(search.ToLower())).OrderByDescending(a => a.NewsArticleID).ToListAsync();
+    }
+
     public async Task<List<NewsArticle>> GetArticlesyncOderByDescending()
     {
         var result = await _context.NewsArticles

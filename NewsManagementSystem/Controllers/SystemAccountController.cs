@@ -85,7 +85,7 @@ namespace NewsManagementSystem.Controllers
             {
                 accounts = await _systemAccountService.GetSystemAccountByNameAsync(search);
             }
-
+            ViewBag.Search = search;
             var viewModel = new AccountManagementViewModel() { Accounts = accounts };
             return View(viewModel);
         }
