@@ -13,6 +13,22 @@ public class TagRepo : ITagRepo
         _context = context;
     }
 
+    public async Task CreateTagAsync(BusinessObject.Entities.Tag tag)
+    {
+        await _context.Tags.AddAsync(tag);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task DeleteTagAsync(int tagId)
+    {
+        var tag = await _context.Tags.FindAsync(tagId);
+        if (tag == null)
+            return;
+
+        _context.Tags.Remove(tag);
+        await _context.SaveChangesAsync();
+    }
+
     public async Task<List<BusinessObject.Entities.Tag>> GetAllTagsAsync()
     {
         return await _context.Tags.ToListAsync();
@@ -22,4 +38,19 @@ public class TagRepo : ITagRepo
     {
         return await _context.Tags.Where(t => tagIds.Contains(t.TagID)).ToListAsync();
     }
+
+    public async Task UpdateTagAsync(BusinessObject.Entities.Tag tag)
+    {
+        var existingTag = await _context.Tags.FindAsync(tag.TagID);
+        if (existingTag == null)
+            return;
+
+        existingTag.TagName = tag.TagName;
+        existingTag.Note = tag.Note;
+        // Update other properties if needed
+
+        await _context.SaveChangesAsync();
+    }
+
+    
 }

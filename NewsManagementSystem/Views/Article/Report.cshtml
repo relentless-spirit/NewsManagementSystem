@@ -1,0 +1,108 @@
+﻿@model List<ArticleViewModel>
+
+@{
+    ViewData["Title"] = "Report Articles";
+}
+
+<h2>Search Articles by Creation Date</h2>
+
+<form id="searchForm" method="get" asp-action="GetArticlesByRangeDate" asp-controller="Article" style="margin-bottom: 20px;">
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="startDate" value="@ViewData["StartDate"]" required style="margin-right: 15px;" />
+
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" name="endDate" value="@ViewData["EndDate"]" required style="margin-right: 15px;" />
+
+    <button type="submit" style="padding: 5px 15px; cursor: pointer;">Search</button>
+
+    <!-- Nơi hiển thị lỗi -->
+    <div id="dateError" style="color: red; margin-top: 8px; display: none;"></div>
+</form>
+
+<script>
+    document.getElementById("searchForm").addEventListener("submit", function (event) {
+        const startDate = document.getElementById("startDate").value;
+        const endDate = document.getElementById("endDate").value;
+        const errorDiv = document.getElementById("dateError");
+
+        if (startDate && endDate && new Date(endDate) < new Date(startDate)) {
+            errorDiv.textContent = "End Date must be the same or after Start Date.";
+            errorDiv.style.display = "block";
+            event.preventDefault(); // Ngăn form submit
+        } else {
+            errorDiv.textContent = "";
+            errorDiv.style.display = "none";
+        }
+    });
+</script>
+
+@if (Model != null && Model.Any())
+{
+    <h3>Search Results:</h3>
+    <table class="article-table">
+        <thead>
+            <tr>
+                <th style="width: 50px; text-align:center;">ID</th>
+                <th style="min-width: 200px;">Title</th>
+                <th style="min-width: 250px;">Summary</th>
+                <th style="width: 90px; text-align:center;">Category ID</th>
+                <th style="width: 120px; text-align:center;">Created Date</th>
+                <th style="width: 120px; text-align:center;">Modified Date</th>
+                <th style="min-width: 180px;">Tags</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var article in Model)
+            {
+                <tr>
+                    <td style="text-align:center;">@article.NewsArticleID</td>
+                    <td>@article.NewsTitle</td>
+                    <td>@article.Headline</td>
+                    <td style="text-align:center;">@article.CategoryID</td>
+                    <td style="text-align:center;">@(article.CreatedDate.HasValue? article.CreatedDate.Value.ToString("dd/MM/yyyy") : "N/A")</td>
+                    <td style="text-align:center;">@(article.ModifiedDate.HasValue? article.ModifiedDate.Value.ToString("dd/MM/yyyy") : "Not updated")</td>
+                    <td>
+                        @if (article.AllTags != null && article.AllTags.Any())
+                        {
+                            @string.Join(", ", article.AllTags.Select(t => t.TagName))
+                        }
+                        else
+                        {
+                            <span>No tags</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No search results found.</p>
+}
+
+<style>
+    .article-table {
+        border-collapse: collapse;
+        width: 100%;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+    }
+
+        .article-table th,
+        .article-table td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            vertical-align: top;
+        }
+
+        .article-table th {
+            background-color: #f2f2f2;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        .article-table tbody tr:hover {
+            background-color: #f9f9f9;
+        }
+</style>

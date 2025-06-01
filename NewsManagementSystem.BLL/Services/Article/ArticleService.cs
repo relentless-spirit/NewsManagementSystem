@@ -61,9 +61,18 @@ public class ArticleService : IArticleService
         }
     }
 
+    public async Task<List<NewsArticle>> GetArticlesyncOrderByDesending()
+    {
+        return await _articleRepo.GetArticlesyncOderByDescending();
+    }
+
+    public async Task<List<NewsArticle>> GetArticleByDateRange(DateTime? startDate, DateTime? endDate)
+    {
+        return await _articleRepo.GetArticleByDateRange(startDate, endDate);
+    }
+    
     public async Task<List<NewsArticle>> GetArticlesByAccountIdAsync(short userId)
     {
         return  await _articleRepo.GetArticlesByAccountIdAsync(userId);
     }
-    
 }

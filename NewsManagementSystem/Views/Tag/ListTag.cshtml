@@ -1,0 +1,21 @@
+﻿@model List<BusinessObject.Entities.Tag>
+<h2>All Tags</h2>
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Tag ID</th>
+            <th>Tag Name</th>
+            <th>Note</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tag in Model)
+        {
+            <tr>
+                <td>@tag.TagID</td>
+                <td>@tag.TagName</td>
+                <td>@tag.Note</td>
+            </tr>
+        }
+    </tbody>
+</table>

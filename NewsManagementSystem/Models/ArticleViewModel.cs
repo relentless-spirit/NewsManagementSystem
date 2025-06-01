@@ -13,6 +13,11 @@ public class ArticleViewModel
     public short CategoryID { get; set; }
    
 
+    public short? CreatedByID { get; set; }
+    public short? UpdatedByID { get; set; }
+    public DateTime? CreatedDate { get; set; }
+    public DateTime? ModifiedDate { get; set; }
     public List<Tag> AllTags { get; set; } = new();
     public List<int> SelectedTagIds { get; set; } = new();
 }
+

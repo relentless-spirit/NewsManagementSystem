@@ -21,9 +21,9 @@ public class ArticleController : Controller
     }
 
     //anyone
-    public async Task<IActionResult> GetActiveArticle()
+    public async Task<IActionResult> GetArticlesync()
     {
-        var articles = await _articleService.GetActiveArticlesAsync();
+        var articles = await _articleService.GetArticlesync();
         return View("GetActiveArticle", articles);
     }
 
@@ -168,6 +168,29 @@ public class ArticleController : Controller
         await _articleService.DeleteArticleByIdAsync(id);
         return RedirectToAction("ListArticles", new { categoryId = article.CategoryID });
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetArticlesByRangeDate(DateTime? startDate, DateTime? endDate)
+    {
+       
+            var articles = await _articleService.GetArticleByDateRange(startDate, endDate);
+            var view = articles.Select(a => new ArticleViewModel
+            {
+                NewsArticleID = a.NewsArticleID,
+                NewsTitle = a.NewsTitle,
+                Headline = a.Headline,
+              //  NewsContent = a.NewsContent,
+              //  NewsSource = a.NewsSource,
+                CategoryID = a.Category?.CategoryID ?? 0,
+                CreatedDate = a.CreatedDate,
+                ModifiedDate = a.ModifiedDate,
+                AllTags = a.Tags?.ToList() ?? new List<Tag>(),
+            }).ToList();
+        ViewData["StartDate"] = startDate?.ToString("yyyy-MM-dd") ?? "";
+        ViewData["EndDate"] = endDate?.ToString("yyyy-MM-dd") ?? "";
+
+        return View("Report", view);
+    }
     
     public async Task<IActionResult> MyHistory()
     {
@@ -180,5 +203,6 @@ public class ArticleController : Controller
         ViewBag.Role = role;
         return View("MyHistory", articles);
     }
-
+    
 }
+

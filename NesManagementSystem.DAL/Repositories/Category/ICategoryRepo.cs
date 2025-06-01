@@ -10,4 +10,6 @@ public interface ICategoryRepo
     Task UpdateCategoryAsync(Category category);
     Task DeleteCategoryAsync(Category category);
     Task<bool> CategoryExistsAsync(short categoryId);
+    Task<List<Category>> SearchCategoriesByNameAsync(string searchTerm);
+
 }

@@ -23,14 +23,14 @@ namespace NewsManagementSystem.BLL.Services.SystemAccount
             
             var adminEmail = _config["AdminAccount:Email"];
             var adminPassword = _config["AdminAccount:Password"];
-
+            var adminRole = _config["AdminAccount:Role"];
             if (email == adminEmail && password == adminPassword)
             {
                 return new BusinessObject.Entities.SystemAccount
                 {
                     AccountEmail = adminEmail,
                     AccountPassword = adminPassword,
-                    AccountRole = 0, // Admin
+                    AccountRole =  Convert.ToInt32(adminRole), // Admin
                     AccountName = "Administrator"
                 };
             }

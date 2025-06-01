@@ -15,7 +15,7 @@ namespace NewsManagementSystem.Models
         public string AccountEmail { get; set; }
 
         [Required(ErrorMessage = "Role is required")]
-        public int AccountRole { get; set; }
+        public int? AccountRole { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
         [StringLength(50, MinimumLength = 6, ErrorMessage = "Password must be between 6 and 50 characters")]
