@@ -60,4 +60,9 @@ public class ArticleService : IArticleService
     {
         return await _articleRepo.GetArticlesyncOderByDescending();
     }
+
+    public async Task<List<NewsArticle>> GetArticleByDateRange(DateTime? startDate, DateTime? endDate)
+    {
+        return await _articleRepo.GetArticleByDateRange(startDate, endDate);
+    }
 }

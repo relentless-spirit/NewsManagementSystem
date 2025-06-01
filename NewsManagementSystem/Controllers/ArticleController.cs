@@ -136,27 +136,51 @@ public class ArticleController : Controller
         await _articleService.DeleteArticleByIdAsync(id);
         return RedirectToAction("ListArticles", new { categoryId = article.CategoryID });
     }
-    [HttpGet]
-    public async Task<IActionResult> GetArticlesOrderByDescending()
-    {
-      var articles = await _articleService.GetArticlesyncOrderByDesending();
-        var articlesViewModel = articles.Select(a => new ArticleViewModelOrderByDescending
-        {
-            NewsArticleID = a.NewsArticleID,
-            NewsTitle = a.NewsTitle,
-            Headline = a.Headline,
-            NewsContent = a.NewsContent,
-            NewsSource = a.NewsSource,
-            CategoryID = a.Category?.CategoryID ?? 0,
-            CreatedDate = a.CreatedDate,
-            NewsStatus = a.NewsStatus,
-            CreatedByID = a.CreatedByID,
-            UpdatedByID = a.UpdatedByID,
-            ModifiedDate = a.ModifiedDate,
-            SelectedTagIds = a.Tags?.Select(t => t.TagID).ToList() ?? new List<int>(),
-        }).ToList();
+    //[HttpGet]
+    //public async Task<IActionResult> GetArticlesOrderByDescending()
+    //{
+    //  var articles = await _articleService.GetArticlesyncOrderByDesending();
+    //    var articlesViewModel = articles.Select(a => new ArticleViewModel
+    //    {
+    //        NewsArticleID = a.NewsArticleID,
+    //        NewsTitle = a.NewsTitle,
+    //        Headline = a.Headline,
+    //        NewsContent = a.NewsContent,
+    //        NewsSource = a.NewsSource,
+    //        CategoryID = a.Category?.CategoryID ?? 0,
+    //        CreatedDate = a.CreatedDate,
+    //       // NewsStatus = a.NewsStatus,
+    //        CreatedByID = a.CreatedByID,
+    //        UpdatedByID = a.UpdatedByID,
+    //        ModifiedDate = a.ModifiedDate,
+    //        AllTags = a.Tags?.ToList() ?? new List<Tag>(),
+    //    }).ToList();
 
-        return View("Report",articlesViewModel);
+    //    return View("ListArticlesDescending",articlesViewModel);
+
+
+    //}
+    [HttpGet]
+    public async Task<IActionResult> GetArticlesByRangeDate(DateTime? startDate, DateTime? endDate)
+    {
+       
+            var articles = await _articleService.GetArticleByDateRange(startDate, endDate);
+            var view = articles.Select(a => new ArticleViewModel
+            {
+                NewsArticleID = a.NewsArticleID,
+                NewsTitle = a.NewsTitle,
+                Headline = a.Headline,
+              //  NewsContent = a.NewsContent,
+              //  NewsSource = a.NewsSource,
+                CategoryID = a.Category?.CategoryID ?? 0,
+                CreatedDate = a.CreatedDate,
+                ModifiedDate = a.ModifiedDate,
+                AllTags = a.Tags?.ToList() ?? new List<Tag>(),
+            }).ToList();
+        ViewData["StartDate"] = startDate?.ToString("yyyy-MM-dd") ?? "";
+        ViewData["EndDate"] = endDate?.ToString("yyyy-MM-dd") ?? "";
+
+        return View("Report", view);
     }
     
 }

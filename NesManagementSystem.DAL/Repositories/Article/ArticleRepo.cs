@@ -101,4 +101,15 @@ public class ArticleRepo : IArticleRepo
             .ToListAsync();
         return result;
     }
+
+    public async Task<List<NewsArticle>> GetArticleByDateRange(DateTime? startDate, DateTime? endDate)
+    {
+       var result = await _context.NewsArticles
+            .Include(a => a.Tags)
+            .Include(a => a.Category)
+            .Where(a => a.CreatedDate >= startDate && a.CreatedDate <= endDate)
+            .OrderByDescending(a=>a.CreatedDate).ToListAsync();
+       
+        return result;
+    }
 }
