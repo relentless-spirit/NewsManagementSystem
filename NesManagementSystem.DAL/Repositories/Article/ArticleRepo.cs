@@ -100,4 +100,13 @@ public class ArticleRepo : IArticleRepo
         _context.NewsArticles.Remove(result);
         await _context.SaveChangesAsync();
     }
+    
+    public async Task<List<NewsArticle>> GetArticlesByAccountIdAsync(short userId)
+    {
+        return await _context.NewsArticles
+            .Where(x => x.CreatedByID == userId)
+            .Include(x => x.CreatedBy)
+            .ToListAsync();
+    }
+    
 }

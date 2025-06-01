@@ -12,5 +12,7 @@ public interface IArticleRepo
     Task CreateArticleAsync(NewsArticle category);
     Task UpdateArticleAsync(NewsArticle category, List<int> selectedTagIds);
     Task DeleteArticleAsync(NewsArticle category);
-    
+
+    Task<List<NewsArticle>> GetArticlesByAccountIdAsync(short userId);
+
 }

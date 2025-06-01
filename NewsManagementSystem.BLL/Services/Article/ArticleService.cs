@@ -60,4 +60,10 @@ public class ArticleService : IArticleService
             await _articleRepo.DeleteArticleAsync(article);
         }
     }
+
+    public async Task<List<NewsArticle>> GetArticlesByAccountIdAsync(short userId)
+    {
+        return  await _articleRepo.GetArticlesByAccountIdAsync(userId);
+    }
+    
 }

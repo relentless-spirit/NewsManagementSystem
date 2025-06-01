@@ -1,0 +1,35 @@
+﻿@model List<BusinessObject.Entities.NewsArticle>
+
+<div class="container mt-4">
+    <h2>Your Created Articles</h2>
+    @if (Model != null && Model.Any())
+    {
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Headline</th>
+                <th>Created Date</th>
+                <th>Created By</th>
+               
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var article in Model)
+            {
+                <tr>
+                    <td>@article.NewsTitle</td>
+                    <td>@article.Headline</td>
+                    <td>@article.CreatedDate?.ToString("yyyy-MM-dd HH:mm")</td>
+                    <td>@article.CreatedBy?.AccountName</td>
+                    
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-info">You haven't created any articles yet.</div>
+    }
+</div>

@@ -11,6 +11,7 @@ public class ArticleViewModel
     public string NewsSource { get; set; }
     public string? NewsArticleID { get; set; }
     public short CategoryID { get; set; }
+   
 
     public List<Tag> AllTags { get; set; } = new();
     public List<int> SelectedTagIds { get; set; } = new();

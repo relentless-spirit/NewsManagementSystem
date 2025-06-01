@@ -70,7 +70,7 @@ public class ArticleController : Controller
             vm.AllTags = await _tagService.GetAllTagsAsync();
             return View(vm);
         }
-
+        var userId = HttpContext.Session.GetInt32("UserID");
         var article = new NewsArticle
         {
             NewsArticleID = Guid.NewGuid().ToString().Substring(0, 20),
@@ -79,7 +79,8 @@ public class ArticleController : Controller
             NewsContent = vm.NewsContent,
             NewsSource = vm.NewsSource,
             CreatedDate = DateTime.Now,
-            CategoryID = vm.CategoryID
+            CategoryID = vm.CategoryID,
+            CreatedByID = userId.HasValue ? (short?)userId.Value : null
         };
 
         await _articleService.CreateArticleWithTagsAsync(article, vm.SelectedTagIds);
@@ -126,7 +127,7 @@ public class ArticleController : Controller
             vm.AllTags = await _tagService.GetAllTagsAsync();
             return View(vm);
         }
-
+        var userId = HttpContext.Session.GetInt32("UserID");
         var article = new NewsArticle
         {
             NewsArticleID = vm.NewsArticleID!,
@@ -135,7 +136,8 @@ public class ArticleController : Controller
             NewsContent = vm.NewsContent,
             NewsSource = vm.NewsSource,
             ModifiedDate = DateTime.Now,
-            CategoryID = vm.CategoryID
+            CategoryID = vm.CategoryID,
+            UpdatedByID = userId.HasValue ? (short?)userId.Value : null
         };
 
         await _articleService.UpdateArticleWithTagsAsync(article, vm.SelectedTagIds);
@@ -166,4 +168,17 @@ public class ArticleController : Controller
         await _articleService.DeleteArticleByIdAsync(id);
         return RedirectToAction("ListArticles", new { categoryId = article.CategoryID });
     }
+    
+    public async Task<IActionResult> MyHistory()
+    {
+        var userId = HttpContext.Session.GetInt32("UserID");
+        if (userId == null)
+            return RedirectToAction("Login", "SystemAccount");
+
+        var articles = await _articleService.GetArticlesByAccountIdAsync((short)userId.Value);
+        var role = HttpContext.Session.GetInt32("Role");
+        ViewBag.Role = role;
+        return View("MyHistory", articles);
+    }
+
 }

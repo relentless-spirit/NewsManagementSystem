@@ -15,4 +15,5 @@ public interface IArticleService
     Task UpdateArticleWithTagsAsync(NewsArticle article, List<int> tagIds);
     Task DeleteArticleAsync(NewsArticle article);
     Task DeleteArticleByIdAsync(string id);
+    Task<List<NewsArticle>> GetArticlesByAccountIdAsync(short userId);
 }
