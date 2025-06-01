@@ -16,6 +16,7 @@ public class ArticleRepo : IArticleRepo
     public async Task<List<NewsArticle>> GetArticlesync()
     {
         return await _context.NewsArticles
+            .Where(a => (bool)a.NewsStatus)
             .Include(a => a.Tags)
             .ToListAsync();
     }
@@ -26,7 +27,15 @@ public class ArticleRepo : IArticleRepo
             .Include(a => a.Tags)
             .FirstOrDefaultAsync(a => a.NewsTitle == name);
     }
-    
+
+    public async Task<List<NewsArticle>> GetActiveArticlesAsync()
+    {
+        return await _context.NewsArticles
+            .Where(a => (bool)a.NewsStatus)
+            .ToListAsync();
+    }
+
+
     public async Task<List<NewsArticle>> GetArticlesByCategoryIdAsync(short categoryId)
     {
         return await _context.NewsArticles

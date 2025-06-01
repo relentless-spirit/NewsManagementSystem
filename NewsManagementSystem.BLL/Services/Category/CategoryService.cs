@@ -88,4 +88,8 @@ public class CategoryService : ICategoryService
         return await _categoryRepo.CategoryExistsAsync(categoryId);
     }
 
+    public async Task<List<BusinessObject.Entities.Category>> SearchCategoriesByNameAsync(string searchTerm)
+    {
+        return await _categoryRepo.SearchCategoriesByNameAsync(searchTerm);
+    }
 }

@@ -16,6 +16,11 @@ public class ArticleService : IArticleService
     }
 
     public Task<List<NewsArticle>> GetArticlesync() => _articleRepo.GetArticlesync();
+    public async Task<List<NewsArticle>> GetActiveArticlesAsync()
+    {
+        return await _articleRepo.GetActiveArticlesAsync();
+    }
+
 
     public Task<NewsArticle?> GetArticleByNameAsync(string name) => _articleRepo.GetArticleByNameAsync(name);
 

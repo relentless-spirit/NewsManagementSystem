@@ -6,6 +6,7 @@ public interface IArticleService
 {
     Task<List<NewsArticle>> GetArticlesync();
     Task<List<NewsArticle>> GetArticlesyncOrderByDesending();
+    Task<List<NewsArticle>> GetActiveArticlesAsync();
     Task<NewsArticle?> GetArticleByNameAsync(string name);
     Task<NewsArticle?> GetArticleByIdWithTagsAsync(string id);
     Task<List<NewsArticle>> GetArticlesByCategoryIdAsync(short categoryId);

@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using BusinessObject.Entities;
 using FluentValidation;
-using FluentValidation.AspNetCore;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NewsManagementSystem.BLL.Services.SystemAccount;
 using NewsManagementSystem.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace NewsManagementSystem.Controllers
 {
@@ -17,30 +17,74 @@ namespace NewsManagementSystem.Controllers
         private readonly IValidator<UpdateSystemAccountRequest> _updateSystemAccountRequestValidator;
         private readonly IMapper _mapper;
 
-        public SystemAccountController(ISystemAccountService systemAccountService, IValidator<CreateAccountRequest> createAccountRequestValidator, IMapper mapper, IValidator<UpdateSystemAccountRequest> updateAccountRequestValidator)
+        public SystemAccountController(
+            ISystemAccountService systemAccountService,
+            IValidator<CreateAccountRequest> createAccountRequestValidator,
+            IMapper mapper,
+            IValidator<UpdateSystemAccountRequest> updateAccountRequestValidator)
         {
             _systemAccountService = systemAccountService;
             _createAccountRequestValidator = createAccountRequestValidator;
             _mapper = mapper;
             _updateSystemAccountRequestValidator = updateAccountRequestValidator;
         }
+
+        // ✅ LOGIN (GET)
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        // ✅ LOGIN (POST)
+        [HttpPost]
+        public async Task<IActionResult> Login(string email, string password)
+        {
+            var user = await _systemAccountService.AuthenticateAsync(email, password);
+
+            if (user != null)
+            {
+                HttpContext.Session.SetInt32("ID", user.AccountID);
+                HttpContext.Session.SetString("UserName", user.AccountName ?? "");
+                HttpContext.Session.SetString("Email", user.AccountEmail);
+                HttpContext.Session.SetInt32("Role", user.AccountRole ?? -1);
+                var role = HttpContext.Session.GetInt32("Role");
+                if (role == 1)
+                {
+                    return RedirectToAction("ListCategories", "Category");
+                }
+                return RedirectToAction("Accounts", "SystemAccount"); // Redirect sau login
+            }
+
+            ViewBag.Error = "Email hoặc mật khẩu không đúng.";
+            return View();
+        }
+
+        // ✅ LOGOUT
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login");
+        }
+
         public async Task<IActionResult> Accounts()
         {
+            var role = HttpContext.Session.GetInt32("Role");
+            if (role != 0) // ✅ Chỉ Admin
+                return RedirectToAction("AccessDenied", "Home");
+
             var accounts = await _systemAccountService.GetSystemAccountsAsync();
             var viewModel = new AccountManagementViewModel() { Accounts = accounts };
             return View(viewModel);
         }
 
-        // [HttpGet]
-        // public IActionResult CreateSystemAccount()
-        // {
-        //     return View();
-        // }
-
-
         [HttpPost]
-        public async Task<IActionResult> CreateSystemAccount([FromBody]CreateAccountRequest accountRequest)
+        public async Task<IActionResult> CreateSystemAccount([FromBody] CreateAccountRequest accountRequest)
         {
+            var role = HttpContext.Session.GetInt32("Role");
+            if (role != 0)
+                return Unauthorized();
+
             ValidationResult result = await _createAccountRequestValidator.ValidateAsync(accountRequest);
             if (!result.IsValid)
             {
@@ -53,41 +97,22 @@ namespace NewsManagementSystem.Controllers
 
                 return BadRequest(new { success = false, errors });
             }
+
             var systemAccount = _mapper.Map<SystemAccount>(accountRequest);
             await _systemAccountService.CreateSystemAccountAsync(systemAccount);
-            return Ok(new {success = true});
+            return Ok(new { success = true });
         }
 
-        // GET: Edit
-        //public async Task<IActionResult> Edit(short id)
-        //{
-        //    if (id <= 0)
-        //        return BadRequest("Invalid account ID.");
-
-        //    var account = await _systemAccountService.GetSystemAccountByIdAsync(id);
-        //    if (account == null)
-        //        return NotFound("Account not found.");
-
-        //    return View(account);
-        //}
-
-        // POST: Edit (Update Account from modal)
         [HttpPost]
-
-        public async Task<IActionResult> Edit([FromBody]UpdateSystemAccountRequest account)
+        public async Task<IActionResult> Edit([FromBody] UpdateSystemAccountRequest account)
         {
+            var role = HttpContext.Session.GetInt32("Role");
+            // if (role != 0 )
+            //     return Unauthorized();
 
             ValidationResult result = await _updateSystemAccountRequestValidator.ValidateAsync(account);
             if (!result.IsValid)
             {
-                // Lấy lại danh sách accounts để render lại view
-                // var accounts = await _systemAccountService.GetSystemAccountsAsync();
-                // var viewModel = new AccountManagementViewModel
-                // {
-                //     Accounts = accounts,
-                //     UpdateSystemAccountRequest = account
-                // };
-                // Đặt cờ để tự động mở lại modal khi có lỗi
                 var errors = result.Errors
                     .GroupBy(e => e.PropertyName)
                     .ToDictionary(
@@ -98,33 +123,18 @@ namespace NewsManagementSystem.Controllers
                 return BadRequest(new { success = false, errors });
             }
 
-
             var systemAccount = _mapper.Map<SystemAccount>(account);
             await _systemAccountService.UpdateSystemAccountAsync(systemAccount);
-
             return Ok(new { success = true });
-            // if (!ModelState.IsValid)
-            // {
-            //     // Lấy lại danh sách accounts để render lại view
-            //     var accounts = await _systemAccountService.GetSystemAccountsAsync();
-            //     var viewModel = new AccountManagementViewModel
-            //     {
-            //         Accounts = accounts,
-            //         UpdateSystemAccountRequest = account
-            //     };
-            //     ViewBag.ShowUpdateModal = true;
-            //     return View("Accounts", viewModel);
-            // }
-            //
-            // // Map sang entity và update
-            // var systemAccount = _mapper.Map<SystemAccount>(account);
-            // await _systemAccountService.UpdateSystemAccountAsync(systemAccount);
-            //
-            // return RedirectToAction("Accounts");
         }
+
         [HttpPost]
         public async Task<IActionResult> Delete(short id)
         {
+            var role = HttpContext.Session.GetInt32("Role");
+            if (role != 0)
+                return Unauthorized();
+
             var account = await _systemAccountService.GetSystemAccountByIdAsync(id);
             if (account == null)
             {
@@ -133,6 +143,30 @@ namespace NewsManagementSystem.Controllers
 
             await _systemAccountService.DeleteSystemAccountAsync(account);
             return RedirectToAction("Accounts");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Profile()
+        {
+            var role = HttpContext.Session.GetInt32("Role");
+            if (role == 0)
+                return Unauthorized();
+            var id = (short)(HttpContext.Session.GetInt32("ID") ?? 0);
+            var account = await _systemAccountService.GetSystemAccountByIdAsync(id);
+            if (account == null)
+            {
+                return View("Login");
+            }
+            var model = new UpdateSystemAccountRequest()
+            {
+                AccountID = account.AccountID,
+                AccountName = account.AccountName,
+                AccountEmail = account.AccountEmail,
+                AccountRole = account.AccountRole,
+                AccountPassword = account.AccountPassword,
+            };
+            var profile = new AccountManagementViewModel() { UpdateSystemAccountRequest = model };
+            return View(profile);
         }
 
     }

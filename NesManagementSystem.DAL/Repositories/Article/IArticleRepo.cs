@@ -6,6 +6,7 @@ public interface IArticleRepo
 {
     Task<List<NewsArticle>> GetArticlesync();
     Task<List<NewsArticle>> GetArticlesyncOderByDescending();
+    Task<List<NewsArticle>> GetActiveArticlesAsync();
     Task<NewsArticle?> GetArticleByNameAsync(string name);
     Task<List<NewsArticle>> GetArticlesByCategoryIdAsync(short categoryId);
     Task CreateArticleAsync(NewsArticle category);

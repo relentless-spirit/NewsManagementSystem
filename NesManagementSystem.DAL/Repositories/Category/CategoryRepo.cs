@@ -110,4 +110,16 @@ public class CategoryRepo : ICategoryRepo
         // Check if the category exists in the NewsArticle table
         return await _context.NewsArticles.AnyAsync(na => na.CategoryID == categoryId);
     }
+
+    public async Task<List<BusinessObject.Entities.Category>> SearchCategoriesByNameAsync(string searchTerm)
+    {
+        if (string.IsNullOrWhiteSpace(searchTerm))
+        {
+            return await GetCategoriesAsync();
+        }
+
+        return await _context.Categories
+            .Where(c => c.IsActive && c.CategoryName.ToLower().Contains(searchTerm.ToLower()))
+            .ToListAsync();
+    }
 }

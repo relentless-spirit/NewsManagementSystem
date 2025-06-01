@@ -12,7 +12,17 @@ public class TagService : ITagService
         _tagRepo = tagRepo;
     }
 
+    public Task CreateTagAsync(BusinessObject.Entities.Tag tag) => _tagRepo.CreateTagAsync(tag);
+
+    public Task DeleteTagAsync(int tagId) => _tagRepo.DeleteTagAsync(tagId);
+
     public Task<List<BusinessObject.Entities.Tag>> GetAllTagsAsync() => _tagRepo.GetAllTagsAsync();
 
     public Task<List<BusinessObject.Entities.Tag>> GetTagsByIdsAsync(List<int> tagIds) => _tagRepo.GetTagsByIdsAsync(tagIds);
+
+    
+
+    public Task UpdateTagAsync(BusinessObject.Entities.Tag tag) => _tagRepo.UpdateTagAsync(tag);
+
+    
 }
