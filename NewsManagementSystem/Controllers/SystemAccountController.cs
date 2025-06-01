@@ -44,6 +44,7 @@ namespace NewsManagementSystem.Controllers
 
             if (user != null)
             {
+                HttpContext.Session.SetInt32("ID", user.AccountID);
                 HttpContext.Session.SetString("UserName", user.AccountName ?? "");
                 HttpContext.Session.SetString("Email", user.AccountEmail);
                 HttpContext.Session.SetInt32("Role", user.AccountRole ?? -1);
@@ -106,8 +107,8 @@ namespace NewsManagementSystem.Controllers
         public async Task<IActionResult> Edit([FromBody] UpdateSystemAccountRequest account)
         {
             var role = HttpContext.Session.GetInt32("Role");
-            if (role != 0)
-                return Unauthorized();
+            // if (role != 0 )
+            //     return Unauthorized();
 
             ValidationResult result = await _updateSystemAccountRequestValidator.ValidateAsync(account);
             if (!result.IsValid)
@@ -144,7 +145,29 @@ namespace NewsManagementSystem.Controllers
             return RedirectToAction("Accounts");
         }
 
-
+        [HttpGet]
+        public async Task<IActionResult> Profile()
+        {
+            var role = HttpContext.Session.GetInt32("Role");
+            if (role == 0)
+                return Unauthorized();
+            var id = (short)(HttpContext.Session.GetInt32("ID") ?? 0);
+            var account = await _systemAccountService.GetSystemAccountByIdAsync(id);
+            if (account == null)
+            {
+                return View("Login");
+            }
+            var model = new UpdateSystemAccountRequest()
+            {
+                AccountID = account.AccountID,
+                AccountName = account.AccountName,
+                AccountEmail = account.AccountEmail,
+                AccountRole = account.AccountRole,
+                AccountPassword = account.AccountPassword,
+            };
+            var profile = new AccountManagementViewModel() { UpdateSystemAccountRequest = model };
+            return View(profile);
+        }
 
     }
 }
