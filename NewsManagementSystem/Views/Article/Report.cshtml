@@ -1,0 +1,50 @@
+﻿@model List<NewsManagementSystem.Models.ArticleViewModelOrderByDescending>
+
+@{
+    ViewData["Title"] = "Articles Report";
+}
+
+<div class="container mt-4">
+    <h2>@ViewData["Title"]</h2>
+
+    @if (Model != null && Model.Any())
+    {
+        <table class="table table-bordered table-striped mt-3">
+            <thead class="table-dark">
+                <tr>
+                    <th>NewsArticleID</th>
+                    <th>Title</th>
+                    <th>Headline</th>
+                    <th>Content</th>
+                    <th>Source</th>
+                    <th>CategoryID</th>
+                    <th>Created Date</th>
+                    <th>Status</th>
+                    <th>Tags (IDs)</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var article in Model)
+                {
+                    <tr>
+                        <td>@article.NewsArticleID</td>
+                        <td>@article.NewsTitle</td>
+                        <td>@article.Headline</td>
+                        <td>@article.NewsContent</td>
+                        <td>@article.NewsSource</td>
+                        <td>@article.CategoryID</td>
+                        <td>@article.CreatedDate?.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        <td>@(article.NewsStatus == true ? "Active" : "Inactive")</td>
+                        <td>@string.Join(", ", article.SelectedTagIds)</td>
+                       
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-info mt-3">No articles available for the report.</div>
+    }
+</div>

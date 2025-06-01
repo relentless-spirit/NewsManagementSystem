@@ -92,4 +92,13 @@ public class ArticleRepo : IArticleRepo
         _context.NewsArticles.Remove(result);
         await _context.SaveChangesAsync();
     }
+
+    public async Task<List<NewsArticle>> GetArticlesyncOderByDescending()
+    {
+        var result = await _context.NewsArticles
+            .Include(a => a.Tags).Include(a=>a.Category)
+            .OrderByDescending(a => a.CreatedDate)
+            .ToListAsync();
+        return result;
+    }
 }

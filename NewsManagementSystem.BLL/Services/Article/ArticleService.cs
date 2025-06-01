@@ -55,4 +55,9 @@ public class ArticleService : IArticleService
             await _articleRepo.DeleteArticleAsync(article);
         }
     }
+
+    public async Task<List<NewsArticle>> GetArticlesyncOrderByDesending()
+    {
+        return await _articleRepo.GetArticlesyncOderByDescending();
+    }
 }

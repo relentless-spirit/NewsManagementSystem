@@ -15,3 +15,12 @@ public class ArticleViewModel
     public List<Tag> AllTags { get; set; } = new();
     public List<int> SelectedTagIds { get; set; } = new();
 }
+
+public class ArticleViewModelOrderByDescending : ArticleViewModel
+{
+    public DateTime? CreatedDate { get; set; }
+    public bool? NewsStatus { get; set; }
+    public short? CreatedByID { get; set; }
+    public short? UpdatedByID { get; set; }
+    public DateTime? ModifiedDate { get; set; }
+}

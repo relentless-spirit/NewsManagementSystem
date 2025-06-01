@@ -136,6 +136,27 @@ public class ArticleController : Controller
         await _articleService.DeleteArticleByIdAsync(id);
         return RedirectToAction("ListArticles", new { categoryId = article.CategoryID });
     }
-    
+    [HttpGet]
+    public async Task<IActionResult> GetArticlesOrderByDescending()
+    {
+      var articles = await _articleService.GetArticlesyncOrderByDesending();
+        var articlesViewModel = articles.Select(a => new ArticleViewModelOrderByDescending
+        {
+            NewsArticleID = a.NewsArticleID,
+            NewsTitle = a.NewsTitle,
+            Headline = a.Headline,
+            NewsContent = a.NewsContent,
+            NewsSource = a.NewsSource,
+            CategoryID = a.Category?.CategoryID ?? 0,
+            CreatedDate = a.CreatedDate,
+            NewsStatus = a.NewsStatus,
+            CreatedByID = a.CreatedByID,
+            UpdatedByID = a.UpdatedByID,
+            ModifiedDate = a.ModifiedDate,
+            SelectedTagIds = a.Tags?.Select(t => t.TagID).ToList() ?? new List<int>(),
+        }).ToList();
+
+        return View("Report",articlesViewModel);
+    }
     
 }
