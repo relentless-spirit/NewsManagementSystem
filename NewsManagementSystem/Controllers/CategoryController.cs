@@ -25,13 +25,14 @@ public class CategoryController : Controller
         return PartialView();
     }
 
-    public async Task<IActionResult> ListCategories()
+    public async Task<IActionResult> ListCategories(string? search)
     {
         var role = HttpContext.Session.GetInt32("Role");
         if (role != 1)
             return RedirectToAction("AccessDenied", "Home");
 
-        var categories = await _categoryService.GetCategoriesAsync();
+        var categories = await _categoryService.SearchCategoriesByNameAsync(search);
+        ViewBag.Search = search;
         return View(categories);
     }
 
