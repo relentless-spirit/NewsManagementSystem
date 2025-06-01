@@ -47,7 +47,11 @@ namespace NewsManagementSystem.Controllers
                 HttpContext.Session.SetString("UserName", user.AccountName ?? "");
                 HttpContext.Session.SetString("Email", user.AccountEmail);
                 HttpContext.Session.SetInt32("Role", user.AccountRole ?? -1);
-
+                var role = HttpContext.Session.GetInt32("Role");
+                if (role == 1)
+                {
+                    return RedirectToAction("ListCategories", "Category");
+                }
                 return RedirectToAction("Accounts", "SystemAccount"); // Redirect sau login
             }
 

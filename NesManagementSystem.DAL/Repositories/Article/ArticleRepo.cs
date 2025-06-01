@@ -16,6 +16,7 @@ public class ArticleRepo : IArticleRepo
     public async Task<List<NewsArticle>> GetArticlesync()
     {
         return await _context.NewsArticles
+            .Where(a => (bool)a.NewsStatus)
             .Include(a => a.Tags)
             .ToListAsync();
     }

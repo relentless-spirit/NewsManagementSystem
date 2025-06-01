@@ -18,6 +18,7 @@ else
                 <th>Tiêu đề</th>
                 <th>Nguồn</th>
                 <th>Ngày tạo</th>
+                <th>Tag</th>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +28,12 @@ else
                     <td>@article.NewsTitle</td>
                     <td>@article.NewsSource</td>
                     <td>@(article.CreatedDate?.ToString("dd/MM/yyyy") ?? "N/A")</td>
+                    <td>
+                        @if (article.Tags != null && article.Tags.Any())
+                        {
+                            @string.Join(", ", article.Tags.Select(t => t.TagName))
+                        }
+                    </td>
                 </tr>
             }
         </tbody>
