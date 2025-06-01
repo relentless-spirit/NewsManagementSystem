@@ -60,4 +60,14 @@ public class ArticleService : IArticleService
             await _articleRepo.DeleteArticleAsync(article);
         }
     }
+
+    public async Task<List<NewsArticle>> GetArticlesyncOrderByDesending()
+    {
+        return await _articleRepo.GetArticlesyncOderByDescending();
+    }
+
+    public async Task<List<NewsArticle>> GetArticleByDateRange(DateTime? startDate, DateTime? endDate)
+    {
+        return await _articleRepo.GetArticleByDateRange(startDate, endDate);
+    }
 }

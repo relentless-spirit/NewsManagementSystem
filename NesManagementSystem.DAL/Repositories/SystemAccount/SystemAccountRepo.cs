@@ -30,18 +30,19 @@ namespace NewsManagementSystem.DAL.SystemAccount
 
         public async Task DeleteSystemAccountAsync(BusinessObject.Entities.SystemAccount systemAccount)
         {
-            var articles = _context.NewsArticles.Where(a => a.CreatedByID == systemAccount.AccountID).ToList();
+            //    _context.NewsArticles.Remove(article);
+            //}
 
-            foreach (var article in articles)
+            //_context.SystemAccounts.Remove(systemAccount);
+            //await _context.SaveChangesAsync();
+
+            var account = await _context.SystemAccounts.Include(a=>a.NewsArticles).FirstOrDefaultAsync(a => a.AccountID == systemAccount.AccountID);
+            if (account == null)
             {
-                var tags = _context.Tags
-                    .Where(t => t.NewsArticles.Any(na => na.NewsArticleID == article.NewsArticleID));
-                _context.Tags.RemoveRange(tags);
-
-                _context.NewsArticles.Remove(article);
+                throw new KeyNotFoundException($"System account with ID {systemAccount.AccountID} not found.");
             }
-
-            _context.SystemAccounts.Remove(systemAccount);
+            account.NewsArticles.Clear(); 
+            _context.SystemAccounts.Remove(account); 
             await _context.SaveChangesAsync();
         }
 
