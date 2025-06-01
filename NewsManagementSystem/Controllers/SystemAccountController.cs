@@ -53,6 +53,10 @@ namespace NewsManagementSystem.Controllers
                 {
                     return RedirectToAction("ListCategories", "Category");
                 }
+                else if (role == 2)
+                {
+                    return RedirectToAction("GetArticlesync", "Article");
+                }
                 return RedirectToAction("Accounts", "SystemAccount"); // Redirect sau login
             }
 
@@ -67,13 +71,21 @@ namespace NewsManagementSystem.Controllers
             return RedirectToAction("Login");
         }
 
-        public async Task<IActionResult> Accounts()
+        public async Task<IActionResult> Accounts(string? search)
         {
+            List<SystemAccount> accounts;
             var role = HttpContext.Session.GetInt32("Role");
             if (role != 0) // ✅ Chỉ Admin
                 return RedirectToAction("AccessDenied", "Home");
+            if (search == null)
+            {
+                accounts = await _systemAccountService.GetSystemAccountsAsync();
+            }
+            else
+            {
+                accounts = await _systemAccountService.GetSystemAccountByNameAsync(search);
+            }
 
-            var accounts = await _systemAccountService.GetSystemAccountsAsync();
             var viewModel = new AccountManagementViewModel() { Accounts = accounts };
             return View(viewModel);
         }
@@ -150,7 +162,7 @@ namespace NewsManagementSystem.Controllers
         {
             var role = HttpContext.Session.GetInt32("Role");
             if (role == 0)
-                return Unauthorized();
+                return RedirectToAction("AccessDenied", "Home");
             var id = (short)(HttpContext.Session.GetInt32("ID") ?? 0);
             var account = await _systemAccountService.GetSystemAccountByIdAsync(id);
             if (account == null)
