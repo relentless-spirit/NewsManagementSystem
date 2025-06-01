@@ -51,14 +51,14 @@ namespace NewsManagementSystem.DAL.SystemAccount
             return await _context.SystemAccounts.FindAsync(id);
         }
 
-        public Task<List<BusinessObject.Entities.SystemAccount?>> GetSystemAccountByNameAsync(string systemAccountName)
+        public async Task<List<BusinessObject.Entities.SystemAccount>> GetSystemAccountByNameAsync(string systemAccountName)
         {
-            throw new NotImplementedException();
+            return await _context.SystemAccounts.Where(x => x.AccountName.ToLower().Contains(systemAccountName.ToLower())).OrderByDescending(x => x.AccountID).ToListAsync();
         }
 
         public async Task<List<BusinessObject.Entities.SystemAccount>> GetSystemAccountsAsync()
         {
-            return await _context.SystemAccounts.ToListAsync();
+            return await _context.SystemAccounts.OrderByDescending(x => x.AccountID).ToListAsync();
         }
 
         public async Task UpdateSystemAccountAsync(BusinessObject.Entities.SystemAccount systemAccount)

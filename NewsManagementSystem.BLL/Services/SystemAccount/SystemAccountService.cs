@@ -54,12 +54,13 @@ namespace NewsManagementSystem.BLL.Services.SystemAccount
             return await _systemAccountRepo.GetSystemAccountByIdAsync(id);
         }
 
-        public Task<BusinessObject.Entities.SystemAccount?> GetSystemAccountByNameAsync(string systemAccountName)
+        public async Task<List<BusinessObject.Entities.SystemAccount>> GetSystemAccountByNameAsync(
+            string systemAccountName)
         {
-            throw new NotImplementedException();
+            return await _systemAccountRepo.GetSystemAccountByNameAsync(systemAccountName);
         }
 
-        public async Task<List<BusinessObject.Entities.SystemAccount?>> GetSystemAccountsAsync()
+        public async Task<List<BusinessObject.Entities.SystemAccount>> GetSystemAccountsAsync()
         {
             return await _systemAccountRepo.GetSystemAccountsAsync();
         }

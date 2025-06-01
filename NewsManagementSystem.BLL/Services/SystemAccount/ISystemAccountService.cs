@@ -10,7 +10,7 @@ namespace NewsManagementSystem.BLL.Services.SystemAccount
     public interface ISystemAccountService
     {
          Task<List<BusinessObject.Entities.SystemAccount>> GetSystemAccountsAsync();
-        Task<BusinessObject.Entities.SystemAccount> GetSystemAccountByNameAsync(string systemAccountName);
+        Task<List<BusinessObject.Entities.SystemAccount>> GetSystemAccountByNameAsync(string systemAccountName);
         Task CreateSystemAccountAsync(BusinessObject.Entities.SystemAccount systemAccount);
         Task<BusinessObject.Entities.SystemAccount?> GetSystemAccountByIdAsync(short id);
 

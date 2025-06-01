@@ -172,7 +172,9 @@ public class ArticleController : Controller
     [HttpGet]
     public async Task<IActionResult> GetArticlesByRangeDate(DateTime? startDate, DateTime? endDate)
     {
-       
+            var role = HttpContext.Session.GetInt32("Role");
+            if (role != 0)
+                return RedirectToAction("AccessDenied", "Home");
             var articles = await _articleService.GetArticleByDateRange(startDate, endDate);
             var view = articles.Select(a => new ArticleViewModel
             {
