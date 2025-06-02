@@ -98,17 +98,17 @@
                             <form class="form-create-account w-100 h-100 d-flex flex-column justify-content-between" asp-controller="SystemAccount" asp-action="CreateSystemAccount" method="post">
                                 <div class="form-group mb-3">
                                     <label asp-for="CreateAccountRequest.AccountID" class="form-label">ID</label>
-                                    <input asp-for="CreateAccountRequest.AccountID" class="form-control" placeholder="Enter category name" />
+                                    <input asp-for="CreateAccountRequest.AccountID" class="form-control" placeholder="Enter account ID" />
                                     <span asp-validation-for="CreateAccountRequest.AccountID" class="text-danger"></span>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label asp-for="CreateAccountRequest.AccountName" class="form-label">Name</label>
-                                    <input asp-for="CreateAccountRequest.AccountName" class="form-control" rows="4" placeholder="Enter category description" />
+                                    <input asp-for="CreateAccountRequest.AccountName" class="form-control" rows="4" placeholder="Enter account name" />
                                     <span asp-validation-for="CreateAccountRequest.AccountName" class="text-danger"></span>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label asp-for="CreateAccountRequest.AccountEmail" class="form-label">Email</label>
-                                    <input type="email" asp-for="CreateAccountRequest.AccountEmail" class="form-control" rows="4" placeholder="Enter category description" />
+                                    <input type="email" asp-for="CreateAccountRequest.AccountEmail" class="form-control" rows="4" placeholder="Enter account email" />
                                     <span asp-validation-for="CreateAccountRequest.AccountEmail" class="text-danger"></span>
                                 </div>
                                 <div class="form-group mb-3">
@@ -122,7 +122,7 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label asp-for="CreateAccountRequest.AccountPassword" class="form-label">Password</label>
-                                    <input type="password" asp-for="CreateAccountRequest.AccountPassword" class="form-control" rows="4" placeholder="Enter category description" />
+                                    <input type="password" asp-for="CreateAccountRequest.AccountPassword" class="form-control" rows="4" placeholder="Enter account password" autocomplete="new-password"/>
                                     <span asp-validation-for="CreateAccountRequest.AccountPassword" class="text-danger"></span>
                                 </div>
                                 <div class="d-flex justify-content-between">
