@@ -84,7 +84,7 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="AccountRole" class="form-label">Role</label>
-                                    <select id="AccountRole" name="AccountRole" class="form-control">
+                                    <select id="AccountRole" name="AccountRole" class="form-control" disabled>
                                         <option value="">-- Select Role --</option>
                                         <option value="1" selected="@(Model.UpdateSystemAccountRequest?.AccountRole == 1 ? "selected" : null)">Staff</option>
                                         <option value="2" selected="@(Model.UpdateSystemAccountRequest?.AccountRole == 2 ? "selected" : null)">Lecture</option>
@@ -98,7 +98,7 @@
                                     <span asp-validation-for="UpdateSystemAccountRequest.AccountPassword" class="text-danger"></span>
                                 </div>
                                 <div class="d-flex justify-content-between">
-                                    <a asp-controller="SystemAccount" asp-action="Accounts" class="btn btn-secondary">Cancel</a>
+                                    <a asp-controller="SystemAccount" asp-action="Profile" class="btn btn-secondary">Cancel</a>
                                     <button type="submit" class="btn btn-warning">Update</button>
                                 </div>
                             </form>
